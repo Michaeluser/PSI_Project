@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Bookings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Service Bookings</h1>
+
+    <button onclick="loadServiceBookings()">Load Service Bookings</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Bike ID</th>
+            <th>Service Type</th>
+            <th>Status</th>
+            <th>Requested Date</th>
+        </tr>
+        </thead>
+        <tbody id="serviceBookingsTableBody"></tbody>
+    </table>
+
+    <a href="index.html">Back to Home</a>
+</div>
+
+<script>
+    async function loadServiceBookings() {
+        const response = await fetch('/api/service-bookings');
+        const bookings = await response.json();
+
+        const tableBody = document.getElementById('serviceBookingsTableBody');
+        tableBody.innerHTML = '';
+
+        bookings.forEach(booking => {
+            const row = `
+                <tr>
+                    <td>${booking.id}</td>
+                    <td>${booking.bikeId}</td>
+                    <td>${booking.serviceType}</td>
+                    <td>${booking.status}</td>
+                    <td>${booking.requestedDate}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+</script>
+</body>
+</html>

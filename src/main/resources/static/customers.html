@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Customers</h1>
+
+    <button onclick="loadCustomers()">Load Customers</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Credit</th>
+        </tr>
+        </thead>
+        <tbody id="customersTableBody"></tbody>
+    </table>
+
+    <a href="index.html">Back to Home</a>
+</div>
+
+<script>
+    async function loadCustomers() {
+        const response = await fetch('/api/customers');
+        const customers = await response.json();
+
+        const tableBody = document.getElementById('customersTableBody');
+        tableBody.innerHTML = '';
+
+        customers.forEach(customer => {
+            const row = `
+                <tr>
+                    <td>${customer.id}</td>
+                    <td>${customer.firstName}</td>
+                    <td>${customer.lastName}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.credit}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+</script>
+</body>
+</html>

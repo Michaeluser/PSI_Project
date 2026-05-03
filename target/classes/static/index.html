@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeFlow Local v2</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="page-header">
+    <div>
+        <h1>BikeFlow Local v2</h1>
+        <p>Manual testing UI for UC01–UC06.</p>
+    </div>
+</header>
+
+<nav class="tabs">
+    <button class="tab-button active" data-tab="service">Service booking</button>
+    <button class="tab-button" data-tab="dispatch">Dispatch</button>
+    <button class="tab-button" data-tab="rental">Rental</button>
+    <button class="tab-button" data-tab="data">Reference data</button>
+</nav>
+
+<main>
+    <section class="tab-panel active" id="tab-service">
+        <div class="grid">
+            <div class="card">
+                <h2>Create service booking</h2>
+                <form id="service-booking-form">
+                    <label>Customer name <input name="customerName" required></label>
+                    <label>Email <input name="customerEmail" type="email" required></label>
+                    <label>Bike brand <input name="bikeBrand" required></label>
+                    <label>Bike model <input name="bikeModel" required></label>
+                    <label>Problem description <textarea name="problemDescription" required></textarea></label>
+                    <label>Preferred from <input name="preferredFrom" type="datetime-local" required></label>
+                    <label>Preferred to <input name="preferredTo" type="datetime-local" required></label>
+                    <label>Service point
+                        <select name="servicePointId" id="service-point-select" required></select>
+                    </label>
+                    <button type="submit">Create booking</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Update service booking status</h2>
+                <form id="service-status-form">
+                    <label>Booking
+                        <select name="bookingId" id="service-booking-select" required></select>
+                    </label>
+                    <label>Status
+                        <select name="status" required>
+                            <option>SCHEDULED</option>
+                            <option>RECEIVED</option>
+                            <option>WAITING_FOR_PARTS</option>
+                            <option>IN_REPAIR</option>
+                            <option>DONE</option>
+                            <option>CANCELLED</option>
+                            <option>REJECTED</option>
+                            <option>NO_SHOW</option>
+                        </select>
+                    </label>
+                    <label>Preliminary price <input name="preliminaryPrice" type="number" step="0.01"></label>
+                    <label>Estimated completion <input name="estimatedCompletionAt" type="datetime-local"></label>
+                    <label>Notes <textarea name="notes"></textarea></label>
+                    <button type="submit">Update status</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Service bookings</h2>
+            <pre id="service-bookings-output"></pre>
+        </div>
+    </section>
+
+    <section class="tab-panel" id="tab-dispatch">
+        <div class="grid">
+            <div class="card">
+                <h2>Sales and stock overview</h2>
+                <label>Facility
+                    <select id="inventory-facility-select"></select>
+                </label>
+                <div class="button-row">
+                    <button id="load-overview-button" type="button">Load stock overview</button>
+                    <button id="load-sales-button" type="button">Load sales analysis</button>
+                </div>
+                <pre id="inventory-output"></pre>
+            </div>
+            <div class="card">
+                <h2>Create dispatch request</h2>
+                <form id="dispatch-form">
+                    <label>Source facility <select name="sourceFacilityId" id="dispatch-source" required></select></label>
+                    <label>Target facility <select name="targetFacilityId" id="dispatch-target" required></select></label>
+                    <label>Priority
+                        <select name="priority" required>
+                            <option>LOW</option>
+                            <option selected>MEDIUM</option>
+                            <option>HIGH</option>
+                        </select>
+                    </label>
+                    <label>Product <select name="productId" id="dispatch-product" required></select></label>
+                    <label>Quantity <input name="requestedQuantity" type="number" min="1" required></label>
+                    <label>Notes <textarea name="notes"></textarea></label>
+                    <button type="submit">Create dispatch request</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Dispatch requests</h2>
+            <pre id="dispatch-output"></pre>
+        </div>
+    </section>
+
+    <section class="tab-panel" id="tab-rental">
+        <div class="grid">
+            <div class="card">
+                <h2>Pre-register rental</h2>
+                <form id="pre-register-form">
+                    <label>Customer <select name="customerId" id="customer-select" required></select></label>
+                    <label>City
+                        <select id="bike-city-select">
+                            <option>Trnava</option>
+                            <option>Bratislava</option>
+                        </select>
+                    </label>
+                    <div class="button-row">
+                        <button id="load-bikes-button" type="button">Load available bikes</button>
+                    </div>
+                    <label>Bike <select name="bikeId" id="bike-select" required></select></label>
+                    <label>Planned minutes <input name="plannedMinutes" type="number" min="1" value="30" required></label>
+                    <button type="submit">Pre-register</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Start / finish / report issue</h2>
+                <form id="rental-action-form">
+                    <label>Rental <select name="rentalId" id="rental-select" required></select></label>
+                    <div class="button-row">
+                        <button type="button" id="start-rental-button">Start rental</button>
+                        <button type="button" id="finish-rental-button">Finish rental</button>
+                    </div>
+                    <label>Issue type
+                        <select id="issue-type-select">
+                            <option>DAMAGED</option>
+                            <option>MISSING</option>
+                        </select>
+                    </label>
+                    <label>Issue description <textarea id="issue-description">Reported from local UI.</textarea></label>
+                    <button type="button" id="report-issue-button">Report issue</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Rentals</h2>
+            <pre id="rental-output"></pre>
+        </div>
+    </section>
+
+    <section class="tab-panel" id="tab-data">
+        <div class="card">
+            <h2>Reference data</h2>
+            <div class="button-row">
+                <button id="refresh-reference-data" type="button">Refresh all reference data</button>
+            </div>
+            <pre id="reference-output"></pre>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Latest API response</h2>
+        <pre id="api-response"></pre>
+    </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

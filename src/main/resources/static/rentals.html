@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Rentals</h1>
+
+    <button onclick="loadRentals()">Load Rentals</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer ID</th>
+            <th>Bike ID</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody id="rentalsTableBody"></tbody>
+    </table>
+
+    <a href="index.html">Back to Home</a>
+</div>
+
+<script>
+    async function loadRentals() {
+        const response = await fetch('/api/rentals');
+        const rentals = await response.json();
+
+        const tableBody = document.getElementById('rentalsTableBody');
+        tableBody.innerHTML = '';
+
+        rentals.forEach(rental => {
+            const row = `
+                <tr>
+                    <td>${rental.id}</td>
+                    <td>${rental.customerId}</td>
+                    <td>${rental.bikeId}</td>
+                    <td>${rental.status}</td>
+                    <td>${rental.startDate}</td>
+                    <td>${rental.endDate ?? '-'}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+</script>
+</body>
+</html>

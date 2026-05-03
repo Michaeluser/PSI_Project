@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -53,12 +55,40 @@ public class ServiceBooking {
 
     private OffsetDateTime estimatedCompletionAt;
 
+    private OffsetDateTime receivedAt;
+
+    @Column(length = 1500)
+    private String technicalState;
+
+    @Column(length = 1500)
+    private String additionalFindings;
+
+    private OffsetDateTime clientApprovedAt;
+
+    private OffsetDateTime completedAt;
+
+    private OffsetDateTime clientNotifiedAt;
+
+    private int loyaltyDiscountPercent;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal loyaltyDiscountAmount;
+
+    @Column(length = 1500)
+    private String partsOrderSummary;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "service_point_id")
     private Facility servicePoint;
 
     @Column(length = 1500)
     private String notes;
+
+    @OneToMany(mappedBy = "serviceBooking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServiceWorkItem> workItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "serviceBooking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServiceRequiredPart> requiredParts = new ArrayList<>();
 
     public ServiceBooking() {}
 
@@ -90,8 +120,28 @@ public class ServiceBooking {
     public void setPreliminaryPrice(BigDecimal preliminaryPrice) { this.preliminaryPrice = preliminaryPrice; }
     public OffsetDateTime getEstimatedCompletionAt() { return estimatedCompletionAt; }
     public void setEstimatedCompletionAt(OffsetDateTime estimatedCompletionAt) { this.estimatedCompletionAt = estimatedCompletionAt; }
+    public OffsetDateTime getReceivedAt() { return receivedAt; }
+    public void setReceivedAt(OffsetDateTime receivedAt) { this.receivedAt = receivedAt; }
+    public String getTechnicalState() { return technicalState; }
+    public void setTechnicalState(String technicalState) { this.technicalState = technicalState; }
+    public String getAdditionalFindings() { return additionalFindings; }
+    public void setAdditionalFindings(String additionalFindings) { this.additionalFindings = additionalFindings; }
+    public OffsetDateTime getClientApprovedAt() { return clientApprovedAt; }
+    public void setClientApprovedAt(OffsetDateTime clientApprovedAt) { this.clientApprovedAt = clientApprovedAt; }
+    public OffsetDateTime getCompletedAt() { return completedAt; }
+    public void setCompletedAt(OffsetDateTime completedAt) { this.completedAt = completedAt; }
+    public OffsetDateTime getClientNotifiedAt() { return clientNotifiedAt; }
+    public void setClientNotifiedAt(OffsetDateTime clientNotifiedAt) { this.clientNotifiedAt = clientNotifiedAt; }
+    public int getLoyaltyDiscountPercent() { return loyaltyDiscountPercent; }
+    public void setLoyaltyDiscountPercent(int loyaltyDiscountPercent) { this.loyaltyDiscountPercent = loyaltyDiscountPercent; }
+    public BigDecimal getLoyaltyDiscountAmount() { return loyaltyDiscountAmount; }
+    public void setLoyaltyDiscountAmount(BigDecimal loyaltyDiscountAmount) { this.loyaltyDiscountAmount = loyaltyDiscountAmount; }
+    public String getPartsOrderSummary() { return partsOrderSummary; }
+    public void setPartsOrderSummary(String partsOrderSummary) { this.partsOrderSummary = partsOrderSummary; }
     public Facility getServicePoint() { return servicePoint; }
     public void setServicePoint(Facility servicePoint) { this.servicePoint = servicePoint; }
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+    public List<ServiceWorkItem> getWorkItems() { return workItems; }
+    public List<ServiceRequiredPart> getRequiredParts() { return requiredParts; }
 }

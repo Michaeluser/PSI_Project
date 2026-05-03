@@ -33,4 +33,31 @@ public class ServiceBookingController {
             @Valid @RequestBody UpdateServiceBookingStatusRequest request) {
         return serviceBookingService.updateStatus(bookingId, request);
     }
+
+    @PostMapping("/{bookingId}/repair-intake")
+    public ServiceBookingResponse processRepair(
+            @PathVariable UUID bookingId,
+            @Valid @RequestBody ProcessServiceRepairRequest request) {
+        return serviceBookingService.processRepair(bookingId, request);
+    }
+
+    @PostMapping("/{bookingId}/complete")
+    public ServiceBookingResponse completeRepair(@PathVariable UUID bookingId) {
+        return serviceBookingService.completeRepair(bookingId);
+    }
+
+    @PostMapping("/{bookingId}/no-show")
+    public ServiceBookingResponse markNoShow(@PathVariable UUID bookingId) {
+        return serviceBookingService.markNoShow(bookingId);
+    }
+
+    @PostMapping("/{bookingId}/reject-estimate")
+    public ServiceBookingResponse rejectEstimate(@PathVariable UUID bookingId) {
+        return serviceBookingService.rejectEstimate(bookingId);
+    }
+
+    @GetMapping("/history")
+    public List<ServiceBookingResponse> getServiceHistory(@RequestParam String customerEmail) {
+        return serviceBookingService.getServiceHistory(customerEmail);
+    }
 }

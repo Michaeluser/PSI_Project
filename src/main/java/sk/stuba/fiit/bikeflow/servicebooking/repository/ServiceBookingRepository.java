@@ -21,4 +21,8 @@ public interface ServiceBookingRepository extends JpaRepository<ServiceBooking, 
     long countActiveBySlot(OffsetDateTime slot, List<ServiceBookingStatus> activeStatuses);
 
     Optional<ServiceBooking> findByBookingNumber(String bookingNumber);
+
+    long countByCustomerEmailIgnoreCaseAndStatus(String customerEmail, ServiceBookingStatus status);
+
+    List<ServiceBooking> findByCustomerEmailIgnoreCaseOrderByCreatedAtDesc(String customerEmail);
 }

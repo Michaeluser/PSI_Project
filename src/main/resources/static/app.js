@@ -56,6 +56,9 @@ async function loadReferenceData() {
     populateSelect(document.getElementById('dispatch-target'), facilities, 'id', item => `${item.name} / ${item.city}`);
     populateSelect(document.getElementById('dispatch-product'), products, 'id', item => `${item.name} (${item.sku})`);
     populateSelect(document.getElementById('service-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
+    populateSelect(document.getElementById('service-intake-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
+    populateSelect(document.getElementById('service-action-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
+    populateSelect(document.getElementById('service-intake-product'), products, 'id', item => `${item.name} (${item.sku})`);
     populateSelect(document.getElementById('rental-select'), rentals, 'id', item => `${item.rentalNumber} / ${item.status}`);
 
     document.getElementById('reference-output').textContent = JSON.stringify({ customers, facilities, products }, null, 2);
@@ -117,6 +120,58 @@ document.getElementById('service-status-form').addEventListener('submit', async 
         })
     });
     await loadReferenceData();
+});
+
+document.getElementById('service-intake-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const partQuantity = Number(form.get('partQuantity'));
+    const requiredParts = partQuantity > 0
+        ? [{
+            productId: form.get('productId'),
+            requestedQuantity: partQuantity,
+            unitPrice: Number(form.get('partUnitPrice') || 0)
+        }]
+        : [];
+
+    await api(`/api/service-bookings/${form.get('bookingId')}/repair-intake`, {
+        method: 'POST',
+        body: JSON.stringify({
+            technicalState: form.get('technicalState'),
+            additionalFindings: form.get('additionalFindings') || null,
+            workItems: [{
+                description: form.get('workDescription'),
+                laborPrice: Number(form.get('laborPrice') || 0)
+            }],
+            requiredParts,
+            clientApproved: form.get('clientApproved') === 'on'
+        })
+    });
+    await loadReferenceData();
+});
+
+document.getElementById('complete-service-button').addEventListener('click', async () => {
+    const bookingId = document.getElementById('service-action-booking-select').value;
+    await api(`/api/service-bookings/${bookingId}/complete`, { method: 'POST' });
+    await loadReferenceData();
+});
+
+document.getElementById('no-show-service-button').addEventListener('click', async () => {
+    const bookingId = document.getElementById('service-action-booking-select').value;
+    await api(`/api/service-bookings/${bookingId}/no-show`, { method: 'POST' });
+    await loadReferenceData();
+});
+
+document.getElementById('reject-service-button').addEventListener('click', async () => {
+    const bookingId = document.getElementById('service-action-booking-select').value;
+    await api(`/api/service-bookings/${bookingId}/reject-estimate`, { method: 'POST' });
+    await loadReferenceData();
+});
+
+document.getElementById('load-service-history-button').addEventListener('click', async () => {
+    const email = document.getElementById('service-history-email').value;
+    const history = await api(`/api/service-bookings/history?customerEmail=${encodeURIComponent(email)}`);
+    document.getElementById('service-history-output').textContent = JSON.stringify(history, null, 2);
 });
 
 document.getElementById('dispatch-form').addEventListener('submit', async event => {

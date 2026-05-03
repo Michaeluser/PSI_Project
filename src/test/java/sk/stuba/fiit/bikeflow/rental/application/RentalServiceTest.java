@@ -13,9 +13,9 @@ import sk.stuba.fiit.bikeflow.rental.repository.RentalRepository;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,20 +30,26 @@ class RentalServiceTest {
         CustomerAccountRepository customerRepository = mock(CustomerAccountRepository.class);
         BikeRepository bikeRepository = mock(BikeRepository.class);
 
-        CustomerAccount customer = new CustomerAccount();
-        customer.setId(UUID.randomUUID());
-        customer.setFullName("Andrej");
-        customer.setCreditBalance(new BigDecimal("100.00"));
-        customer.setVerifiedPaymentCard(true);
-        customer.setActive(true);
-        customer.setCreatedAt(OffsetDateTime.now());
+        UUID customerId = UUID.randomUUID();
+        CustomerAccount customer = mock(CustomerAccount.class);
+        when(customer.getId()).thenReturn(customerId);
+        when(customer.getFullName()).thenReturn("Andrej");
+        when(customer.getCreditBalance()).thenReturn(new BigDecimal("100.00"));
+        when(customer.isVerifiedPaymentCard()).thenReturn(true);
+        when(customer.isActive()).thenReturn(true);
 
-        Bike bike = new Bike();
-        bike.setId(UUID.randomUUID());
-        bike.setCode("BK-TEST");
-        bike.setModelName("Test Bike");
-        bike.setPricePerMinute(new BigDecimal("0.50"));
-        bike.setStatus(BikeStatus.AVAILABLE);
+        UUID bikeId = UUID.randomUUID();
+        AtomicReference<BikeStatus> bikeStatus = new AtomicReference<>(BikeStatus.AVAILABLE);
+        Bike bike = mock(Bike.class);
+        when(bike.getId()).thenReturn(bikeId);
+        when(bike.getCode()).thenReturn("BK-TEST");
+        when(bike.getModelName()).thenReturn("Test Bike");
+        when(bike.getPricePerMinute()).thenReturn(new BigDecimal("0.50"));
+        when(bike.getStatus()).thenAnswer(invocation -> bikeStatus.get());
+        doAnswer(invocation -> {
+            bikeStatus.set(invocation.getArgument(0));
+            return null;
+        }).when(bike).setStatus(any(BikeStatus.class));
 
         when(customerRepository.findById(customer.getId())).thenReturn(Optional.of(customer));
         when(bikeRepository.findById(bike.getId())).thenReturn(Optional.of(bike));

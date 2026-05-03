@@ -78,6 +78,17 @@ input, select, textarea {
     font: inherit;
 }
 
+.inline-check {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.inline-check input {
+    width: auto;
+    margin-top: 0;
+}
+
 textarea {
     min-height: 90px;
     resize: vertical;

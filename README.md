@@ -48,6 +48,11 @@ Local Spring Boot + PostgreSQL implementation for UC01–UC06.
 - `GET /api/service-bookings`
 - `POST /api/service-bookings`
 - `PATCH /api/service-bookings/{bookingId}/status`
+- `POST /api/service-bookings/{bookingId}/repair-intake`
+- `POST /api/service-bookings/{bookingId}/complete`
+- `POST /api/service-bookings/{bookingId}/no-show`
+- `POST /api/service-bookings/{bookingId}/reject-estimate`
+- `GET /api/service-bookings/history?customerEmail=...`
 - `GET /api/products`
 - `GET /api/inventory/overview?facilityId=...`
 - `GET /api/inventory/sales-analysis?facilityId=...&days=30`

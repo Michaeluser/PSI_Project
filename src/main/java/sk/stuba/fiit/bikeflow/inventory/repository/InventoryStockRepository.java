@@ -21,4 +21,16 @@ public interface InventoryStockRepository extends JpaRepository<InventoryStock, 
     List<InventoryStock> findOverviewByFacilityId(UUID facilityId);
 
     Optional<InventoryStock> findByFacilityIdAndProductId(UUID facilityId, UUID productId);
+
+    @Query("""
+            select s
+            from InventoryStock s
+            join fetch s.facility f
+            join fetch s.product p
+            where p.id = :productId
+              and f.id <> :targetFacilityId
+              and s.quantity >= :quantity
+            order by s.quantity desc
+            """)
+    List<InventoryStock> findAvailableSources(UUID productId, UUID targetFacilityId, int quantity);
 }

@@ -65,6 +65,43 @@
                     <button type="submit">Update status</button>
                 </form>
             </div>
+
+            <div class="card">
+                <h2>Process repair intake</h2>
+                <form id="service-intake-form">
+                    <label>Booking
+                        <select name="bookingId" id="service-intake-booking-select" required></select>
+                    </label>
+                    <label>Technical state <textarea name="technicalState" required>Frame checked, drivetrain worn, brakes need adjustment.</textarea></label>
+                    <label>Additional findings <textarea name="additionalFindings">Rear brake pads are below safe limit.</textarea></label>
+                    <label>Work description <input name="workDescription" value="Brake adjustment and drivetrain service" required></label>
+                    <label>Labor price <input name="laborPrice" type="number" step="0.01" min="0" value="45.00" required></label>
+                    <label>Required part
+                        <select name="productId" id="service-intake-product"></select>
+                    </label>
+                    <label>Part quantity <input name="partQuantity" type="number" min="0" value="1"></label>
+                    <label>Part unit price <input name="partUnitPrice" type="number" step="0.01" min="0" value="18.00"></label>
+                    <label class="inline-check"><input name="clientApproved" type="checkbox" checked> Client approved price and completion term</label>
+                    <button type="submit">Process repair</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Repair actions and history</h2>
+                <label>Booking
+                    <select id="service-action-booking-select" required></select>
+                </label>
+                <div class="button-row">
+                    <button id="complete-service-button" type="button">Complete repair</button>
+                    <button id="no-show-service-button" type="button">Mark no-show</button>
+                    <button id="reject-service-button" type="button">Reject estimate</button>
+                </div>
+                <label>Customer email <input id="service-history-email" type="email" value="andrej@example.com"></label>
+                <div class="button-row">
+                    <button id="load-service-history-button" type="button">Load service history</button>
+                </div>
+                <pre id="service-history-output"></pre>
+            </div>
         </div>
         <div class="card">
             <h2>Service bookings</h2>

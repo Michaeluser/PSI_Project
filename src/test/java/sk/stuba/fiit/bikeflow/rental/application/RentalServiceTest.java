@@ -8,6 +8,7 @@ import sk.stuba.fiit.bikeflow.customer.repository.CustomerAccountRepository;
 import sk.stuba.fiit.bikeflow.rental.api.PreRegisterRentalRequest;
 import sk.stuba.fiit.bikeflow.rental.domain.Rental;
 import sk.stuba.fiit.bikeflow.rental.domain.RentalStatus;
+import sk.stuba.fiit.bikeflow.rental.repository.FeedbackRepository;
 import sk.stuba.fiit.bikeflow.rental.repository.RentalIssueReportRepository;
 import sk.stuba.fiit.bikeflow.rental.repository.RentalRepository;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ class RentalServiceTest {
         RentalIssueReportRepository issueRepository = mock(RentalIssueReportRepository.class);
         CustomerAccountRepository customerRepository = mock(CustomerAccountRepository.class);
         BikeRepository bikeRepository = mock(BikeRepository.class);
+        FeedbackRepository feedbackRepository = mock(FeedbackRepository.class);
 
         CustomerAccount customer = new CustomerAccount();
         customer.setId(UUID.randomUUID());
@@ -49,7 +51,7 @@ class RentalServiceTest {
         when(bikeRepository.findById(bike.getId())).thenReturn(Optional.of(bike));
         when(rentalRepository.save(any(Rental.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        RentalService service = new RentalService(rentalRepository, issueRepository, customerRepository, bikeRepository);
+        RentalService service = new RentalService(rentalRepository, issueRepository, customerRepository, bikeRepository, feedbackRepository);
 
         var response = service.preRegister(new PreRegisterRentalRequest(customer.getId(), bike.getId(), 20));
 

@@ -1,6 +1,6 @@
 package sk.stuba.fiit.bikeflow.facility.domain;
 
-public enum FacilityType {
+public enum FacilityStatus {
     SERVICE_POINT,
     WAREHOUSE,
     SHOP

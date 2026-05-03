@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "dispatch_request")
-public class DispatchRequest {
+public class ExpeditionRequest {
 
     @Id
     private UUID id;
@@ -28,11 +28,11 @@ public class DispatchRequest {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DispatchPriority priority;
+    private RequestPriority priority;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DispatchStatus status;
+    private RequestStatus status;
 
     @Column(nullable = false)
     private OffsetDateTime createdAt;
@@ -40,10 +40,14 @@ public class DispatchRequest {
     @Column(length = 1500)
     private String notes;
 
-    @OneToMany(mappedBy = "dispatchRequest", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DispatchRequestItem> items = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requested_by_id")
+    private WarehouseStaff requestedBy;
 
-    public DispatchRequest() {}
+    @OneToMany(mappedBy = "expeditionRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExpeditionRequestItem> items = new ArrayList<>();
+
+    public ExpeditionRequest() {}
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
@@ -53,13 +57,15 @@ public class DispatchRequest {
     public void setSourceFacility(Facility sourceFacility) { this.sourceFacility = sourceFacility; }
     public Facility getTargetFacility() { return targetFacility; }
     public void setTargetFacility(Facility targetFacility) { this.targetFacility = targetFacility; }
-    public DispatchPriority getPriority() { return priority; }
-    public void setPriority(DispatchPriority priority) { this.priority = priority; }
-    public DispatchStatus getStatus() { return status; }
-    public void setStatus(DispatchStatus status) { this.status = status; }
+    public RequestPriority getPriority() { return priority; }
+    public void setPriority(RequestPriority priority) { this.priority = priority; }
+    public RequestStatus getStatus() { return status; }
+    public void setStatus(RequestStatus status) { this.status = status; }
     public OffsetDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
-    public List<DispatchRequestItem> getItems() { return items; }
+    public WarehouseStaff getRequestedBy() { return requestedBy; }
+    public void setRequestedBy(WarehouseStaff requestedBy) { this.requestedBy = requestedBy; }
+    public List<ExpeditionRequestItem> getItems() { return items; }
 }

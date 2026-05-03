@@ -1,6 +1,6 @@
 package sk.stuba.fiit.bikeflow.dispatch.domain;
 
-public enum DispatchPriority {
+public enum RequestPriority {
     LOW,
     MEDIUM,
     HIGH

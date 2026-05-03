@@ -7,12 +7,16 @@ import sk.stuba.fiit.bikeflow.common.exception.BusinessRuleException;
 import sk.stuba.fiit.bikeflow.common.exception.NotFoundException;
 import sk.stuba.fiit.bikeflow.customer.domain.CustomerAccount;
 import sk.stuba.fiit.bikeflow.customer.repository.CustomerAccountRepository;
+import sk.stuba.fiit.bikeflow.rental.api.FeedbackResponse;
 import sk.stuba.fiit.bikeflow.rental.api.PreRegisterRentalRequest;
 import sk.stuba.fiit.bikeflow.rental.api.RentalResponse;
 import sk.stuba.fiit.bikeflow.rental.api.ReportRentalIssueRequest;
+import sk.stuba.fiit.bikeflow.rental.api.SubmitFeedbackRequest;
+import sk.stuba.fiit.bikeflow.rental.domain.Feedback;
 import sk.stuba.fiit.bikeflow.rental.domain.Rental;
 import sk.stuba.fiit.bikeflow.rental.domain.RentalIssueReport;
 import sk.stuba.fiit.bikeflow.rental.domain.RentalStatus;
+import sk.stuba.fiit.bikeflow.rental.repository.FeedbackRepository;
 import sk.stuba.fiit.bikeflow.rental.repository.RentalIssueReportRepository;
 import sk.stuba.fiit.bikeflow.rental.repository.RentalRepository;
 import org.springframework.stereotype.Service;
@@ -31,16 +35,19 @@ public class RentalService {
     private final RentalIssueReportRepository rentalIssueReportRepository;
     private final CustomerAccountRepository customerAccountRepository;
     private final BikeRepository bikeRepository;
+    private final FeedbackRepository feedbackRepository;
 
     public RentalService(
             RentalRepository rentalRepository,
             RentalIssueReportRepository rentalIssueReportRepository,
             CustomerAccountRepository customerAccountRepository,
-            BikeRepository bikeRepository) {
+            BikeRepository bikeRepository,
+            FeedbackRepository feedbackRepository) {
         this.rentalRepository = rentalRepository;
         this.rentalIssueReportRepository = rentalIssueReportRepository;
         this.customerAccountRepository = customerAccountRepository;
         this.bikeRepository = bikeRepository;
+        this.feedbackRepository = feedbackRepository;
     }
 
     public List<RentalResponse> getAll() {
@@ -142,6 +149,32 @@ public class RentalService {
         rentalIssueReportRepository.save(issueReport);
 
         return toResponse(rental);
+    }
+
+    public FeedbackResponse submitFeedback(UUID rentalId, SubmitFeedbackRequest request) {
+        Rental rental = getRental(rentalId);
+        if (rental.getStatus() != RentalStatus.FINISHED) {
+            throw new BusinessRuleException("Feedback can only be submitted for finished rentals.");
+        }
+        if (feedbackRepository.existsByRentalId(rentalId)) {
+            throw new BusinessRuleException("Feedback has already been submitted for this rental.");
+        }
+
+        Feedback feedback = new Feedback();
+        feedback.setId(UUID.randomUUID());
+        feedback.setRental(rental);
+        feedback.setRating(request.rating());
+        feedback.setComment(request.comment());
+        feedback.setSubmittedAt(OffsetDateTime.now());
+        feedbackRepository.save(feedback);
+
+        return new FeedbackResponse(
+                feedback.getId(),
+                rentalId,
+                feedback.getRating(),
+                feedback.getComment(),
+                feedback.getSubmittedAt()
+        );
     }
 
     private Rental getRental(UUID rentalId) {

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record DispatchRequestItemPayload(
+public record ExpeditionRequestItemPayload(
         @NotNull UUID productId,
         @Min(1) int requestedQuantity) {
 }

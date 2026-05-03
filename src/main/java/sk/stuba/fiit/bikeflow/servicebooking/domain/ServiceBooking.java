@@ -1,5 +1,7 @@
 package sk.stuba.fiit.bikeflow.servicebooking.domain;
 
+import sk.stuba.fiit.bikeflow.common.Cancellable;
+import sk.stuba.fiit.bikeflow.common.Notifiable;
 import sk.stuba.fiit.bikeflow.facility.domain.Facility;
 import jakarta.persistence.*;
 
@@ -9,7 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "service_booking")
-public class ServiceBooking {
+public class ServiceBooking implements Cancellable, Notifiable {
 
     @Id
     private UUID id;
@@ -94,4 +96,16 @@ public class ServiceBooking {
     public void setServicePoint(Facility servicePoint) { this.servicePoint = servicePoint; }
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    @Override
+    public void cancel() { this.status = ServiceBookingStatus.CANCELLED; }
+
+    @Override
+    public boolean isCancelled() { return this.status == ServiceBookingStatus.CANCELLED; }
+
+    @Override
+    public String getNotificationEmail() { return customerEmail; }
+
+    @Override
+    public String getNotificationReference() { return bookingNumber; }
 }

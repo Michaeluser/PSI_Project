@@ -1,5 +1,5 @@
 package sk.stuba.fiit.bikeflow.dispatch.domain;
 
-public enum DispatchStatus {
+public enum RequestStatus {
     CREATED
 }

@@ -43,4 +43,11 @@ public class RentalController {
             @Valid @RequestBody ReportRentalIssueRequest request) {
         return rentalService.reportIssue(rentalId, request);
     }
+
+    @PostMapping("/{rentalId}/feedback")
+    public FeedbackResponse submitFeedback(
+            @PathVariable UUID rentalId,
+            @Valid @RequestBody SubmitFeedbackRequest request) {
+        return rentalService.submitFeedback(rentalId, request);
+    }
 }

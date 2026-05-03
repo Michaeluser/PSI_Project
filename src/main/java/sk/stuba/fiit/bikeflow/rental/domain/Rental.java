@@ -1,6 +1,8 @@
 package sk.stuba.fiit.bikeflow.rental.domain;
 
 import sk.stuba.fiit.bikeflow.bike.domain.Bike;
+import sk.stuba.fiit.bikeflow.common.Cancellable;
+import sk.stuba.fiit.bikeflow.common.Notifiable;
 import sk.stuba.fiit.bikeflow.customer.domain.CustomerAccount;
 import jakarta.persistence.*;
 
@@ -10,7 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "rental")
-public class Rental {
+public class Rental implements Cancellable, Notifiable {
 
     @Id
     private UUID id;
@@ -69,4 +71,16 @@ public class Rental {
     public void setStartedAt(OffsetDateTime startedAt) { this.startedAt = startedAt; }
     public OffsetDateTime getEndedAt() { return endedAt; }
     public void setEndedAt(OffsetDateTime endedAt) { this.endedAt = endedAt; }
+
+    @Override
+    public void cancel() { this.status = RentalStatus.CANCELLED; }
+
+    @Override
+    public boolean isCancelled() { return this.status == RentalStatus.CANCELLED; }
+
+    @Override
+    public String getNotificationEmail() { return customer != null ? customer.getEmail() : null; }
+
+    @Override
+    public String getNotificationReference() { return rentalNumber; }
 }

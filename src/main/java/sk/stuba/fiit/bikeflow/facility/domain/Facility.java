@@ -24,7 +24,7 @@ public class Facility {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FacilityType type;
+    private FacilityStatus type;
 
     @Column(nullable = false)
     private String city;
@@ -32,7 +32,7 @@ public class Facility {
     @Column(nullable = false)
     private String addressLine;
 
-    protected Facility() {
+    public Facility() {
     }
 
     public UUID getId() {
@@ -59,11 +59,11 @@ public class Facility {
         this.name = name;
     }
 
-    public FacilityType getType() {
+    public FacilityStatus getType() {
         return type;
     }
 
-    public void setType(FacilityType type) {
+    public void setType(FacilityStatus type) {
         this.type = type;
     }
 

@@ -1,5 +1,6 @@
 package sk.stuba.fiit.bikeflow.servicebooking.application;
 
+import sk.stuba.fiit.bikeflow.common.NotificationService;
 import sk.stuba.fiit.bikeflow.facility.domain.Facility;
 import sk.stuba.fiit.bikeflow.facility.repository.FacilityRepository;
 import sk.stuba.fiit.bikeflow.servicebooking.api.CreateServiceBookingRequest;
@@ -22,6 +23,7 @@ class ServiceBookingServiceTest {
     void shouldCreateBookingInFirstAvailableSlot() {
         ServiceBookingRepository bookingRepository = mock(ServiceBookingRepository.class);
         FacilityRepository facilityRepository = mock(FacilityRepository.class);
+        NotificationService notificationService = mock(NotificationService.class);
 
         Facility facility = new Facility();
         facility.setId(UUID.randomUUID());
@@ -31,7 +33,7 @@ class ServiceBookingServiceTest {
         when(bookingRepository.countActiveBySlot(any(), any())).thenReturn(0L);
         when(bookingRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ServiceBookingService service = new ServiceBookingService(bookingRepository, facilityRepository);
+        ServiceBookingService service = new ServiceBookingService(bookingRepository, facilityRepository, notificationService);
 
         OffsetDateTime from = OffsetDateTime.now().plusDays(1).withMinute(15);
         OffsetDateTime to = from.plusHours(2);

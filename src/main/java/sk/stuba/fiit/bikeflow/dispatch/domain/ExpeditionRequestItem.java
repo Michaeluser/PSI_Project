@@ -7,14 +7,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "dispatch_request_item")
-public class DispatchRequestItem {
+public class ExpeditionRequestItem {
 
     @Id
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "dispatch_request_id")
-    private DispatchRequest dispatchRequest;
+    private ExpeditionRequest expeditionRequest;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
@@ -23,12 +23,12 @@ public class DispatchRequestItem {
     @Column(nullable = false)
     private int requestedQuantity;
 
-    public DispatchRequestItem() {}
+    public ExpeditionRequestItem() {}
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
-    public DispatchRequest getDispatchRequest() { return dispatchRequest; }
-    public void setDispatchRequest(DispatchRequest dispatchRequest) { this.dispatchRequest = dispatchRequest; }
+    public ExpeditionRequest getExpeditionRequest() { return expeditionRequest; }
+    public void setExpeditionRequest(ExpeditionRequest expeditionRequest) { this.expeditionRequest = expeditionRequest; }
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }
     public int getRequestedQuantity() { return requestedQuantity; }

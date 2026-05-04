@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5614f3e1-407d-4cc1-9798-fddd0444f0f5" name="Changes" comment="" />
+    <list default="true" id="5614f3e1-407d-4cc1-9798-fddd0444f0f5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANUAL.md" beforeDir="false" afterPath="$PROJECT_DIR$/MANUAL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" beforeDir="false" afterPath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$4_F5_BikeFlow.docx" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -41,7 +41,7 @@ Password:  (prázdne)
 
 ---
 
-## 2. Seed dáta (predplnené po štarte)
+## 2. Seed dáta (predvyplnené po štarte)
 
 ### Zákazníci
 

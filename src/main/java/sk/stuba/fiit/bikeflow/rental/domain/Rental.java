@@ -79,8 +79,8 @@ public class Rental implements Cancellable, Notifiable {
     public boolean isCancelled() { return this.status == RentalStatus.CANCELLED; }
 
     @Override
-    public String getNotificationEmail() { return customer != null ? customer.getEmail() : null; }
+    public String getEmail() { return customer != null ? customer.getEmail() : null; }
 
     @Override
-    public String getNotificationReference() { return rentalNumber; }
+    public String getPhone() { return rentalNumber; }
 }

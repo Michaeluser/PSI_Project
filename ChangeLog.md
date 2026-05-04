@@ -222,3 +222,13 @@
 | **5.6 (nová)** | `WarehouseStaff` – zamestnanec skladu; väzba na `ExpeditionRequest.requestedBy` |
 | **5.7 (nová)** | Common hodnotové objekty: `DateRange` (@Embeddable), `NotificationService` |
 | **6. Databázová schéma** | Flyway migrácie nahradené: Hibernate `ddl-auto=create-drop` + `data.sql` (`spring.sql.init.mode=always`) |
+
+---
+
+## [F5-R4] Build fix – Notifiable + ServiceBooking
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `common/Notifiable.java` | Rozhranie malo `getNotificationEmail()`/`getNotificationReference()`, ale `NotificationService` volal `getEmail()`/`getPhone()` | Metódy premenované na `getEmail()`, `getPhone()` |
+| `servicebooking/domain/ServiceBooking.java` | Chýbal `@Embedded DateRange preferredWindow`; `ServiceBookingService` volal `setPreferredWindow()`/`getPreferredWindow()` ktoré neexistovali; implementoval staré metódy `Notifiable` | Nahradené `preferredFrom`/`preferredTo` za `@Embedded DateRange preferredWindow`; metódy opravené na `getEmail()`/`getPhone()` |
+| `rental/domain/Rental.java` | Implementoval staré metódy `Notifiable` (`getNotificationEmail`, `getNotificationReference`) | Premenované na `getEmail()`, `getPhone()` |

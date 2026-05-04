@@ -7,6 +7,6 @@ package sk.stuba.fiit.bikeflow.common;
  * of the F4 class diagrams (BCE architecture).
  */
 public interface Notifiable {
-    String getNotificationEmail();
-    String getNotificationReference();
+    String getEmail();
+    String getPhone();
 }

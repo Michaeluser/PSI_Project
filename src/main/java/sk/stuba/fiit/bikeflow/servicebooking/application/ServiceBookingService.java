@@ -25,8 +25,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import sk.stuba.fiit.bikeflow.inventory.domain.StockItem;
+import sk.stuba.fiit.bikeflow.inventory.repository.StockItemRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,17 +52,19 @@ public class ServiceBookingService {
     private final FacilityRepository facilityRepository;
     private final NotificationService notificationService;
     private final ProductRepository productRepository;
+    private final StockItemRepository inventoryStockRepository;
 
     public ServiceBookingService(
             ServiceBookingRepository serviceBookingRepository,
             FacilityRepository facilityRepository,
-            NotificationService notificationService) {
-            FacilityRepository facilityRepository,
+            NotificationService notificationService,
             ProductRepository productRepository,
+            StockItemRepository inventoryStockRepository) {
         this.serviceBookingRepository = serviceBookingRepository;
         this.facilityRepository = facilityRepository;
         this.notificationService = notificationService;
         this.productRepository = productRepository;
+        this.inventoryStockRepository = inventoryStockRepository;
     }
 
     public List<ServiceBookingResponse> getAll() {
@@ -162,7 +164,7 @@ public class ServiceBookingService {
 
             int availableQuantity = inventoryStockRepository
                     .findByFacilityIdAndProductId(booking.getServicePoint().getId(), product.getId())
-                    .map(InventoryStock::getQuantity)
+                    .map(StockItem::getQuantity)
                     .orElse(0);
 
             int missingQuantity = Math.max(0, payload.requestedQuantity() - availableQuantity);
@@ -376,6 +378,10 @@ public class ServiceBookingService {
 
     private String blankToNull(String value) {
         return value == null || value.isBlank() ? null : value;
+    }
+
+    private List<String> createDispatchRequestsForMissingParts(ServiceBooking booking, List<MissingPart> missingParts) {
+        return List.of();
     }
 
     private record MissingPart(Product product, int quantity) {

@@ -15,7 +15,7 @@ insert into bike (id, code, model_name, category, status, price_per_minute, faci
 
 insert into service_booking (id, booking_number, customer_name, customer_email, bike_brand, bike_model,
     problem_description, preferred_from, preferred_to, scheduled_at, created_at, status,
-    preliminary_price, estimated_completion_at, service_point_id, notes) values
+    preliminary_price, estimated_completion_at, loyalty_discount_percent, service_point_id, notes) values
 
 ('ff000001-0000-0000-0000-000000000001',
  'SB-2026-001', 'Andrej Tester', 'andrej@example.com',
@@ -23,7 +23,7 @@ insert into service_booking (id, booking_number, customer_name, customer_email, 
  'Predne brzdy nereaguju spravne, disk je mozno pokriveny.',
  '2026-05-05 08:00:00+02:00', '2026-05-07 18:00:00+02:00',
  '2026-05-05 09:00:00+02:00', '2026-05-03 10:00:00+02:00',
- 'SCHEDULED', null, null,
+ 'SCHEDULED', null, null, 0,
  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1', null),
 
 ('ff000002-0000-0000-0000-000000000002',
@@ -32,7 +32,7 @@ insert into service_booking (id, booking_number, customer_name, customer_email, 
  'Prasknuta rafik, treba vymenit cele koleso vratane pneumatiky.',
  '2026-05-01 08:00:00+02:00', '2026-05-04 18:00:00+02:00',
  '2026-05-01 09:00:00+02:00', '2026-04-30 14:00:00+02:00',
- 'IN_REPAIR', 65.00, '2026-05-04 17:00:00+02:00',
+ 'IN_REPAIR', 65.00, '2026-05-04 17:00:00+02:00', 0,
  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1', 'Caka sa na dodanie nahradneho kolesa.'),
 
 ('ff000003-0000-0000-0000-000000000003',
@@ -41,7 +41,7 @@ insert into service_booking (id, booking_number, customer_name, customer_email, 
  'Pravidelna udrzba, mazanie retaze, nastavenie radenia.',
  '2026-04-28 08:00:00+02:00', '2026-04-30 18:00:00+02:00',
  '2026-04-28 09:00:00+02:00', '2026-04-27 11:00:00+02:00',
- 'DONE', 25.00, '2026-04-30 15:00:00+02:00',
+ 'DONE', 25.00, '2026-04-30 15:00:00+02:00', 10,
  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1', 'Servis dokonceny, bicykel pripraveny na vyzdvihnutie.');
 
 insert into product (id, sku, name, unit) values

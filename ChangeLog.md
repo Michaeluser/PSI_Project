@@ -232,3 +232,105 @@
 | `common/Notifiable.java` | Rozhranie malo `getNotificationEmail()`/`getNotificationReference()`, ale `NotificationService` volal `getEmail()`/`getPhone()` | Metódy premenované na `getEmail()`, `getPhone()` |
 | `servicebooking/domain/ServiceBooking.java` | Chýbal `@Embedded DateRange preferredWindow`; `ServiceBookingService` volal `setPreferredWindow()`/`getPreferredWindow()` ktoré neexistovali; implementoval staré metódy `Notifiable` | Nahradené `preferredFrom`/`preferredTo` za `@Embedded DateRange preferredWindow`; metódy opravené na `getEmail()`/`getPhone()` |
 | `rental/domain/Rental.java` | Implementoval staré metódy `Notifiable` (`getNotificationEmail`, `getNotificationReference`) | Premenované na `getEmail()`, `getPhone()` |
+
+---
+
+## [UI-R1] Rental tab – wizard pre pre-registráciu prenájmu
+
+### Problém
+
+Rental tab mal flat form bez vizuálneho vedenia. Po kliknutí na „Load available bikes" sa bicykle plnili do skrytého `<select>` – žiadny viditeľný zoznam. Tlačidlo „Continue" a kroková navigácia neexistovali.
+
+| Súbor | Zmena |
+|---|---|
+| `static/index.html` | Flat `pre-register-form` nahradený 3-krokovým wizard layoutom: stepper header + 3 panely; zachovaná sekcia „Start / finish / report issue" |
+| `static/styles.css` | Pridané štýly: `.wizard-stepper`, `.wizard-step-item`, `.step-circle`, `.step-connector`, `.city-row`, `.bike-cards`, `.bike-card`, `.bike-card-model/meta/price`, `.wizard-nav`, `.rental-summary`; `button:disabled` |
+| `static/app.js` | Nahradený `load-bikes-button` listener, odstránený `pre-register-form` submit handler; pridaná wizard logika (`showWizardStep`, selekcia karty, step navigácia, confirm + submit) |
+
+**Wizard flow:**
+
+| Krok | Obsah | Akcia |
+|---|---|---|
+| 1 – Select Bike | Dropdown mesta + „Load available bikes" → bikové karty (model, kód, kategória, lokalita, cena/min) | Klik na kartu ju označí a odblokuje „Continue →" |
+| 2 – Customer & Duration | Výber zákazníka + planned minutes | „Continue →" zostaví súhrn a prejde na krok 3 |
+| 3 – Confirm | Súhrn: bicykel, kategória, lokalita, zákazník, minúty, odhadovaná cena | „Pre-register" → `POST /api/rentals/pre-register`; po úspechu reset wizarda |
+
+---
+
+## [UI-R2] Fix – prázdna DB po štarte
+
+### Problém
+
+`spring.flyway.enabled=false` + chýbajúci `data.sql` → Hibernate vytváralo prázdne tabuľky pri každom štarte. `/api/bikes?city=Trnava` vracalo prázdne pole.
+
+| Súbor | Zmena |
+|---|---|
+| `src/main/resources/data.sql` | **Nový** – seed dáta: 3 zákazníci, 3 prevádzky (Bratislava ×2, Trnava ×1), 3 bicykle v Trnave (`AVAILABLE`), 3 produkty, 6 skladových záznamov, 4 záznamy predaja, 3 service bookings |
+| `src/main/resources/application.properties` | Pridané `spring.sql.init.mode=always` a `spring.jpa.defer-datasource-initialization=true` |
+
+`spring.jpa.defer-datasource-initialization=true` zabezpečí, že `data.sql` sa vykoná až po tom, čo Hibernate vytvorí schému.
+
+---
+
+## [UI-R3] Build fix – ServiceBookingService chybný merge
+
+### Problém
+
+Chybný merge zanechal v `ServiceBookingService` duplikované parametre priamo v tele konštruktora (riadky 60–61), chýbajúci field `inventoryStockRepository` a referencie na zrušené triedy `InventoryStock`/`InventoryStockRepository`.
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `servicebooking/application/ServiceBookingService.java` | Konštruktor mal `FacilityRepository facilityRepository, ProductRepository productRepository,` vo vnútri tela namiesto v parametroch | Parametre presunuté správne; `ProductRepository` pridaný ako parameter |
+| `servicebooking/application/ServiceBookingService.java` | `inventoryStockRepository` použitý v `processRepair` ale nedeklarovaný | Pridaný field `StockItemRepository inventoryStockRepository` + injekcia cez konštruktor |
+| `servicebooking/application/ServiceBookingService.java` | Import a referencia na `InventoryStock`/`InventoryStockRepository` (zrušené triedy) | Nahradené `StockItem`/`StockItemRepository` (platné v main projekte) |
+| `servicebooking/application/ServiceBookingService.java` | Duplikovaný import `ArrayList`, nepoužitý import `LinkedHashMap` | Vyčistené |
+| `servicebooking/application/ServiceBookingService.java` | Chýbajúca metóda `createDispatchRequestsForMissingParts` volaná v `processRepair` | Doplnená ako stub vracajúci `List.of()` |
+
+---
+
+## [UI-R4] Build fix – RentalStatus enum + RentalService
+
+### Problém
+
+Po merge chýbali v `RentalStatus` hodnoty `ISSUE_REPORTED` a `RentalService` používal neplatné hodnoty `PRE_REGISTERED` a `FINISHED` z vetvy `f5-implementation`.
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `rental/domain/RentalStatus.java` | Chýbala hodnota `ISSUE_REPORTED` (použitá v `reportIssue()`) | Doplnená medzi `COMPLETED` a `CANCELLED` |
+| `rental/application/RentalService.java` | Používalo `RentalStatus.PRE_REGISTERED` (neexistuje v main) | Nahradené `RentalStatus.PRELIMINARY` |
+| `rental/application/RentalService.java` | Používalo `RentalStatus.FINISHED` (neexistuje v main) | Nahradené `RentalStatus.COMPLETED` |
+
+**Aktuálne hodnoty `RentalStatus`:** `PRELIMINARY`, `ACTIVE`, `COMPLETED`, `ISSUE_REPORTED`, `CANCELLED`
+
+---
+
+## [UI-R5] Fix – unit testy po merge
+
+### Problém
+
+Oba test súbory referovali zrušené triedy, nesprávne signatúry konštruktorov a neplatné stavové hodnoty.
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `test/.../RentalServiceTest.java` | Konštruktor `RentalService` bez `FeedbackRepository`; `RentalStatus.PRE_REGISTERED/FINISHED` | Kompletný prepis: 5-param helper, `PRELIMINARY/COMPLETED`, test `shouldCancelPreliminaryRentalAndReleaseBike` (**bez refundu** – kredit sa neodpočíta pri pre-registrácii) |
+| `test/.../ServiceBookingServiceTest.java` | Referencie na `DispatchRequest`, `DispatchRequestRepository`, `InventoryStock`, `InventoryStockRepository`; konštruktor bez `StockItemRepository`; `setPreferredFrom/To` namiesto `setPreferredWindow` | Kompletný prepis: 5-param helper, `StockItem`/`StockItemRepository`, `DateRange preferredWindow`, bez dispatch assertions |
+
+---
+
+## [UI-R6] Fix – data.sql NOT NULL constraint pre `loyalty_discount_percent`
+
+### Problém
+
+`INSERT INTO service_booking` neobsahoval stĺpec `loyalty_discount_percent`, ktorý má `NOT NULL` constraint. Aplikácia zlyhala pri štarte s chybou PostgreSQL.
+
+| Súbor | Zmena |
+|---|---|
+| `src/main/resources/data.sql` | Pridaný stĺpec `loyalty_discount_percent` do INSERT: `0` pre `SCHEDULED`/`IN_REPAIR` riadky, `10` pre `DONE` riadok |
+
+---
+
+## [UI-R7] Cleanup – dead file
+
+| Súbor | Zmena |
+|---|---|
+| `dispatch/repository/DispatchRequestRepository.java` | **Zmazaný** – obsahoval iba package deklaráciu, žiadnu triedu; zvyšok po refaktore Dispatch → Expedition |

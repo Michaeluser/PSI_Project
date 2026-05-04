@@ -32,7 +32,7 @@ EA model (`.qea`) bol prečítaný ako SQLite databáza. Z tabuliek `t_object`, 
 | `Rental implements Cancellable, Notifiable` | `Rental implements Cancellable, Notifiable` | ✅ Konzistentné |
 | `Feedback` (Class) | `rental/domain/Feedback.java` | ✅ Konzistentné |
 | `RentalIssueReport` | `rental/domain/RentalIssueReport.java` | ✅ Konzistentné |
-| `RentalStatus`: PRE_REGISTERED, ACTIVE, FINISHED, ISSUE_REPORTED | `RentalStatus` enum | ✅ Konzistentné |
+| `RentalStatus`: PRELIMINARY, ACTIVE, COMPLETED, ISSUE_REPORTED, CANCELLED | `RentalStatus` enum | ✅ Konzistentné |
 | `ReservationFormUI` (Boundary) | `rental/api/RentalController.java` | ⚠️ Existuje, nepomenovaná ako UI (Spring Boot konvencia) |
 | `ReservationController` (Control) | `rental/application/RentalService.java` | ⚠️ Existuje, nepomenovaná ako Controller (Spring Boot konvencia) |
 

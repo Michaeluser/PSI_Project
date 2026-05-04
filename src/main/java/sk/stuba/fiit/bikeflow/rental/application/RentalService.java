@@ -80,7 +80,7 @@ public class RentalService {
         rental.setRentalNumber("RT-" + System.currentTimeMillis());
         rental.setCustomer(customer);
         rental.setBike(bike);
-        rental.setStatus(RentalStatus.PRE_REGISTERED);
+        rental.setStatus(RentalStatus.PRELIMINARY);
         rental.setPlannedMinutes(request.plannedMinutes());
         rental.setEstimatedPrice(estimatedPrice);
         rental.setCreatedAt(OffsetDateTime.now());
@@ -91,7 +91,7 @@ public class RentalService {
 
     public RentalResponse startRental(UUID rentalId) {
         Rental rental = getRental(rentalId);
-        if (rental.getStatus() != RentalStatus.PRE_REGISTERED) {
+        if (rental.getStatus() != RentalStatus.PRELIMINARY) {
             throw new BusinessRuleException("Only preliminary registrations can be started.");
         }
 
@@ -111,7 +111,7 @@ public class RentalService {
             throw new BusinessRuleException("Only active rentals can be finished.");
         }
 
-        rental.setStatus(RentalStatus.FINISHED);
+        rental.setStatus(RentalStatus.COMPLETED);
         rental.setEndedAt(OffsetDateTime.now());
         rental.setFinalPrice(rental.getEstimatedPrice());
 
@@ -175,7 +175,7 @@ public class RentalService {
 
     public FeedbackResponse submitFeedback(UUID rentalId, SubmitFeedbackRequest request) {
         Rental rental = getRental(rentalId);
-        if (rental.getStatus() != RentalStatus.FINISHED) {
+        if (rental.getStatus() != RentalStatus.COMPLETED) {
             throw new BusinessRuleException("Feedback can only be submitted for finished rentals.");
         }
         if (feedbackRepository.existsByRentalId(rentalId)) {

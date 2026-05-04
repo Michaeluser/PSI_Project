@@ -5,140 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5614f3e1-407d-4cc1-9798-fddd0444f0f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/PSI_Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChangeLog.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/common/Cancellable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/common/DateRange.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/common/Notifiable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/common/NotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/WarehouseStaff.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/repository/ExpeditionRequestRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/repository/WarehouseStaffRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/domain/SaleRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/domain/StockItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/api/FeedbackResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/api/SubmitFeedbackRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/Feedback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/repository/FeedbackRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceCapacity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/domain/TimeSlot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/repository/ServiceWorkerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/api/AddSparePartRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/api/AddSparePartResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/api/SparePartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/api/SparePartResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/application/SparePartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/domain/OrderSparePart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/domain/PartOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/domain/PartOrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/domain/SparePart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/repository/OrderSparePartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/repository/PartOrderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/sparepart/repository/SparePartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V5__create_feedback_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/db/migration/V5__create_feedback_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/common/Cancellable.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/common/DateRange.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/common/Notifiable.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/common/NotificationService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/CreateExpeditionRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestResponse$ExpeditionRequestResponseItem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/ExpeditionRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/ExpeditionRequestItem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/RequestPriority.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/RequestStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/WarehouseStaff.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/repository/ExpeditionRequestRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/repository/WarehouseStaffRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/domain/FacilityStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/domain/SaleRecord.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/domain/StockItem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/SaleRecordRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/FeedbackResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/SubmitFeedbackRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/Feedback.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/repository/FeedbackRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceCapacity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceWorker.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/TimeSlot.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/repository/ServiceWorkerRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/api/AddSparePartRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/api/AddSparePartResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/api/SparePartController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/api/SparePartResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/application/SparePartService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/domain/OrderSparePart.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/domain/PartOrder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/domain/PartOrderStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/domain/SparePart.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/repository/OrderSparePartRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/repository/PartOrderRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/sparepart/repository/SparePartRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/CreateDispatchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/CreateExpeditionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestItemPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestItemPayload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/application/DispatchRequestService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchPriority.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/RequestPriority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/ExpeditionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchRequestItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/ExpeditionRequestItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/domain/RequestStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/repository/DispatchRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/repository/DispatchRequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/api/FacilityResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/api/FacilityResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/domain/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/domain/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/domain/FacilityType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/facility/domain/FacilityStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/domain/InventoryStock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/domain/SalesHistory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/repository/InventoryStockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/repository/SalesHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/repository/SaleRecordRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/api/RentalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/api/RentalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangeLog.md" beforeDir="false" afterPath="$PROJECT_DIR$/ChangeLog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangeLog_main.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" beforeDir="false" afterPath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/application/RentalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/application/RentalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/Rental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V99__seed_data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V99__seed_data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V99__seed_data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/migration/V99__seed_data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/CreateDispatchRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestItemPayload.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/ExpeditionRequestItemPayload.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestResponse$DispatchRequestResponseItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/api/DispatchRequestResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/application/DispatchRequestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchPriority.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchRequestItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/domain/DispatchStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/repository/DispatchRequestRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/api/FacilityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/api/FacilityController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/api/FacilityResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/api/FacilityResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/domain/Facility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/domain/Facility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/facility/domain/FacilityType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/domain/InventoryStock.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/domain/SalesHistory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/InventoryStockRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/SalesHistoryRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/Rental.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/Rental.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/RentalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/RentalController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService$MissingPart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService$MissingPart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,38 +71,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BikeFlowApplication.executor": "Run",
-    "Git.Working.Tree.Tab.closed.by.user": "closed",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.BikeFlowApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "Merging united",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/ajomi/Documents/FIIT STU/LS 2025_26/PSI/PSI_Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BikeFlowApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Git.Working.Tree.Tab.closed.by.user&quot;: &quot;closed&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BikeFlowApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;united&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ajomi/Documents/FIIT STU/LS 2025_26/PSI/PSI_Project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ajomi\Documents\FIIT STU\LS 2025_26\PSI\PSI_Project" />
@@ -243,7 +133,7 @@
       <workItem from="1777842337691" duration="340000" />
       <workItem from="1777842703398" duration="11827000" />
       <workItem from="1777857380695" duration="765000" />
-      <workItem from="1777858177657" duration="6054000" />
+      <workItem from="1777858177657" duration="7742000" />
     </task>
     <servers />
   </component>

@@ -1,16 +1,11 @@
 package sk.stuba.fiit.bikeflow.servicebooking.application;
 
+import sk.stuba.fiit.bikeflow.common.DateRange;
+import sk.stuba.fiit.bikeflow.common.NotificationService;
 import sk.stuba.fiit.bikeflow.common.exception.BusinessRuleException;
 import sk.stuba.fiit.bikeflow.common.exception.NotFoundException;
-import sk.stuba.fiit.bikeflow.dispatch.domain.DispatchPriority;
-import sk.stuba.fiit.bikeflow.dispatch.domain.DispatchRequest;
-import sk.stuba.fiit.bikeflow.dispatch.domain.DispatchRequestItem;
-import sk.stuba.fiit.bikeflow.dispatch.domain.DispatchStatus;
-import sk.stuba.fiit.bikeflow.dispatch.repository.DispatchRequestRepository;
 import sk.stuba.fiit.bikeflow.facility.domain.Facility;
 import sk.stuba.fiit.bikeflow.facility.repository.FacilityRepository;
-import sk.stuba.fiit.bikeflow.inventory.domain.InventoryStock;
-import sk.stuba.fiit.bikeflow.inventory.repository.InventoryStockRepository;
 import sk.stuba.fiit.bikeflow.product.domain.Product;
 import sk.stuba.fiit.bikeflow.product.repository.ProductRepository;
 import sk.stuba.fiit.bikeflow.servicebooking.api.CreateServiceBookingRequest;
@@ -19,12 +14,10 @@ import sk.stuba.fiit.bikeflow.servicebooking.api.ServiceRequiredPartResponse;
 import sk.stuba.fiit.bikeflow.servicebooking.api.ServiceBookingResponse;
 import sk.stuba.fiit.bikeflow.servicebooking.api.ServiceWorkItemResponse;
 import sk.stuba.fiit.bikeflow.servicebooking.api.UpdateServiceBookingStatusRequest;
-import sk.stuba.fiit.bikeflow.servicebooking.domain.ServiceBooking;
-import sk.stuba.fiit.bikeflow.servicebooking.domain.ServicePartAvailabilityStatus;
-import sk.stuba.fiit.bikeflow.servicebooking.domain.ServiceRequiredPart;
-import sk.stuba.fiit.bikeflow.servicebooking.domain.ServiceBookingStatus;
-import sk.stuba.fiit.bikeflow.servicebooking.domain.ServiceWorkItem;
+import sk.stuba.fiit.bikeflow.servicebooking.domain.*;
 import sk.stuba.fiit.bikeflow.servicebooking.repository.ServiceBookingRepository;
+import sk.stuba.fiit.bikeflow.servicebooking.domain.ServiceCapacity;
+import sk.stuba.fiit.bikeflow.servicebooking.domain.TimeSlot;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +27,7 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -42,6 +36,7 @@ import java.util.UUID;
 @Transactional
 public class ServiceBookingService {
 
+    private static final ServiceCapacity CAPACITY = new ServiceCapacity(2);
     private static final int SLOT_CAPACITY = 2;
     private static final int LOYALTY_COMPLETED_REPAIRS_THRESHOLD = 2;
     private static final int LOYALTY_DISCOUNT_PERCENT = 10;
@@ -55,21 +50,19 @@ public class ServiceBookingService {
 
     private final ServiceBookingRepository serviceBookingRepository;
     private final FacilityRepository facilityRepository;
+    private final NotificationService notificationService;
     private final ProductRepository productRepository;
-    private final InventoryStockRepository inventoryStockRepository;
-    private final DispatchRequestRepository dispatchRequestRepository;
 
     public ServiceBookingService(
             ServiceBookingRepository serviceBookingRepository,
             FacilityRepository facilityRepository,
+            NotificationService notificationService) {
+            FacilityRepository facilityRepository,
             ProductRepository productRepository,
-            InventoryStockRepository inventoryStockRepository,
-            DispatchRequestRepository dispatchRequestRepository) {
         this.serviceBookingRepository = serviceBookingRepository;
         this.facilityRepository = facilityRepository;
+        this.notificationService = notificationService;
         this.productRepository = productRepository;
-        this.inventoryStockRepository = inventoryStockRepository;
-        this.dispatchRequestRepository = dispatchRequestRepository;
     }
 
     public List<ServiceBookingResponse> getAll() {
@@ -80,14 +73,12 @@ public class ServiceBookingService {
     }
 
     public ServiceBookingResponse create(CreateServiceBookingRequest request) {
-        if (!request.preferredTo().isAfter(request.preferredFrom())) {
-            throw new BusinessRuleException("Preferred end must be after preferred start.");
-        }
+        DateRange preferredWindow = new DateRange(request.preferredFrom(), request.preferredTo());
 
         Facility servicePoint = facilityRepository.findById(request.servicePointId())
                 .orElseThrow(() -> new NotFoundException("Service point was not found."));
 
-        OffsetDateTime selectedSlot = findFirstAvailableSlot(request.preferredFrom(), request.preferredTo());
+        TimeSlot selectedSlot = findFirstAvailableSlot(preferredWindow);
 
         ServiceBooking booking = new ServiceBooking();
         booking.setId(UUID.randomUUID());
@@ -97,14 +88,15 @@ public class ServiceBookingService {
         booking.setBikeBrand(request.bikeBrand());
         booking.setBikeModel(request.bikeModel());
         booking.setProblemDescription(request.problemDescription());
-        booking.setPreferredFrom(request.preferredFrom());
-        booking.setPreferredTo(request.preferredTo());
-        booking.setScheduledAt(selectedSlot);
+        booking.setPreferredWindow(preferredWindow);
+        booking.setScheduledAt(selectedSlot.getStart());
         booking.setCreatedAt(OffsetDateTime.now());
         booking.setStatus(ServiceBookingStatus.SCHEDULED);
         booking.setServicePoint(servicePoint);
 
-        return toResponse(serviceBookingRepository.save(booking));
+        ServiceBookingResponse response = toResponse(serviceBookingRepository.save(booking));
+        notificationService.sendConfirmation(booking, "Service booking confirmed. Booking number: " + booking.getBookingNumber() + ", scheduled at: " + booking.getScheduledAt());
+        return response;
     }
 
     public ServiceBookingResponse updateStatus(UUID bookingId, UpdateServiceBookingStatusRequest request) {
@@ -116,7 +108,24 @@ public class ServiceBookingService {
         booking.setEstimatedCompletionAt(request.estimatedCompletionAt());
         booking.setNotes(request.notes());
 
-        return toResponse(serviceBookingRepository.save(booking));
+        ServiceBookingResponse response = toResponse(serviceBookingRepository.save(booking));
+        notificationService.sendStatusUpdate(booking, "Service booking status updated to " + request.status() + ". Booking number: " + booking.getBookingNumber());
+        return response;
+    }
+
+    TimeSlot findFirstAvailableSlot(DateRange preferredWindow) {
+        TimeSlot slot = new TimeSlot(preferredWindow.getFrom());
+        OffsetDateTime upperBound = preferredWindow.getTo().plusDays(7);
+
+        while (!slot.isAfter(upperBound)) {
+            long activeCount = serviceBookingRepository.countActiveBySlot(slot.getStart(), ACTIVE_STATUSES);
+            if (!CAPACITY.isFull(activeCount)) {
+                return slot;
+            }
+            slot = slot.next();
+        }
+
+        throw new BusinessRuleException("No available service slot was found.");
     }
 
     public ServiceBookingResponse processRepair(UUID bookingId, ProcessServiceRepairRequest request) {
@@ -259,21 +268,6 @@ public class ServiceBookingService {
                 .toList();
     }
 
-    OffsetDateTime findFirstAvailableSlot(OffsetDateTime preferredFrom, OffsetDateTime preferredTo) {
-        OffsetDateTime slot = preferredFrom.truncatedTo(ChronoUnit.HOURS);
-        OffsetDateTime upperBound = preferredTo.plusDays(7).truncatedTo(ChronoUnit.HOURS);
-
-        while (!slot.isAfter(upperBound)) {
-            long activeCount = serviceBookingRepository.countActiveBySlot(slot, ACTIVE_STATUSES);
-            if (activeCount < SLOT_CAPACITY) {
-                return slot;
-            }
-            slot = slot.plusHours(1);
-        }
-
-        throw new BusinessRuleException("No available service slot was found.");
-    }
-
     private ServiceBookingResponse toResponse(ServiceBooking booking) {
         return new ServiceBookingResponse(
                 booking.getId(),
@@ -283,8 +277,8 @@ public class ServiceBookingService {
                 booking.getBikeBrand(),
                 booking.getBikeModel(),
                 booking.getProblemDescription(),
-                booking.getPreferredFrom(),
-                booking.getPreferredTo(),
+                booking.getPreferredWindow().getFrom(),
+                booking.getPreferredWindow().getTo(),
                 booking.getScheduledAt(),
                 booking.getStatus(),
                 booking.getPreliminaryPrice(),
@@ -350,48 +344,6 @@ public class ServiceBookingService {
         int partDelayDays = missingParts.isEmpty() ? 0 : MISSING_PARTS_DELAY_DAYS;
 
         return start.plusDays(workDays + partDelayDays).truncatedTo(ChronoUnit.HOURS);
-    }
-
-    private List<String> createDispatchRequestsForMissingParts(ServiceBooking booking, List<MissingPart> missingParts) {
-        Map<UUID, DispatchRequest> dispatchRequestsBySource = new LinkedHashMap<>();
-
-        for (MissingPart missingPart : missingParts) {
-            List<InventoryStock> sources = inventoryStockRepository.findAvailableSources(
-                    missingPart.product().getId(),
-                    booking.getServicePoint().getId(),
-                    missingPart.quantity());
-
-            if (sources.isEmpty()) {
-                continue;
-            }
-
-            Facility source = sources.get(0).getFacility();
-            DispatchRequest dispatchRequest = dispatchRequestsBySource.get(source.getId());
-            if (dispatchRequest == null) {
-                dispatchRequest = new DispatchRequest();
-                dispatchRequest.setId(UUID.randomUUID());
-                dispatchRequest.setRequestNumber("DR-" + System.currentTimeMillis() + "-" + (dispatchRequestsBySource.size() + 1));
-                dispatchRequest.setSourceFacility(source);
-                dispatchRequest.setTargetFacility(booking.getServicePoint());
-                dispatchRequest.setPriority(DispatchPriority.HIGH);
-                dispatchRequest.setStatus(DispatchStatus.CREATED);
-                dispatchRequest.setCreatedAt(OffsetDateTime.now());
-                dispatchRequest.setNotes("Auto request for missing parts in service booking " + booking.getBookingNumber() + ".");
-                dispatchRequestsBySource.put(source.getId(), dispatchRequest);
-            }
-
-            DispatchRequestItem item = new DispatchRequestItem();
-            item.setId(UUID.randomUUID());
-            item.setDispatchRequest(dispatchRequest);
-            item.setProduct(missingPart.product());
-            item.setRequestedQuantity(missingPart.quantity());
-            dispatchRequest.getItems().add(item);
-        }
-
-        return dispatchRequestsBySource.values().stream()
-                .map(dispatchRequestRepository::save)
-                .map(DispatchRequest::getRequestNumber)
-                .toList();
     }
 
     private String buildPartsOrderSummary(List<MissingPart> missingParts, List<String> dispatchNumbers) {

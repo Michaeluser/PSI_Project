@@ -1,5 +1,8 @@
 package sk.stuba.fiit.bikeflow.servicebooking.domain;
 
+import sk.stuba.fiit.bikeflow.common.Cancellable;
+import sk.stuba.fiit.bikeflow.common.DateRange;
+import sk.stuba.fiit.bikeflow.common.Notifiable;
 import sk.stuba.fiit.bikeflow.facility.domain.Facility;
 import jakarta.persistence.*;
 
@@ -11,7 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "service_booking")
-public class ServiceBooking {
+public class ServiceBooking implements Cancellable, Notifiable {
 
     @Id
     private UUID id;
@@ -34,11 +37,8 @@ public class ServiceBooking {
     @Column(nullable = false, length = 1500)
     private String problemDescription;
 
-    @Column(nullable = false)
-    private OffsetDateTime preferredFrom;
-
-    @Column(nullable = false)
-    private OffsetDateTime preferredTo;
+    @Embedded
+    private DateRange preferredWindow;
 
     @Column(nullable = false)
     private OffsetDateTime scheduledAt;
@@ -106,10 +106,8 @@ public class ServiceBooking {
     public void setBikeModel(String bikeModel) { this.bikeModel = bikeModel; }
     public String getProblemDescription() { return problemDescription; }
     public void setProblemDescription(String problemDescription) { this.problemDescription = problemDescription; }
-    public OffsetDateTime getPreferredFrom() { return preferredFrom; }
-    public void setPreferredFrom(OffsetDateTime preferredFrom) { this.preferredFrom = preferredFrom; }
-    public OffsetDateTime getPreferredTo() { return preferredTo; }
-    public void setPreferredTo(OffsetDateTime preferredTo) { this.preferredTo = preferredTo; }
+    public DateRange getPreferredWindow() { return preferredWindow; }
+    public void setPreferredWindow(DateRange preferredWindow) { this.preferredWindow = preferredWindow; }
     public OffsetDateTime getScheduledAt() { return scheduledAt; }
     public void setScheduledAt(OffsetDateTime scheduledAt) { this.scheduledAt = scheduledAt; }
     public OffsetDateTime getCreatedAt() { return createdAt; }
@@ -142,6 +140,18 @@ public class ServiceBooking {
     public void setServicePoint(Facility servicePoint) { this.servicePoint = servicePoint; }
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    @Override
+    public void cancel() { this.status = ServiceBookingStatus.CANCELLED; }
+
+    @Override
+    public boolean isCancelled() { return this.status == ServiceBookingStatus.CANCELLED; }
+
+    @Override
+    public String getEmail() { return customerEmail; }
+
+    @Override
+    public String getPhone() { return bookingNumber; }
     public List<ServiceWorkItem> getWorkItems() { return workItems; }
     public List<ServiceRequiredPart> getRequiredParts() { return requiredParts; }
 }

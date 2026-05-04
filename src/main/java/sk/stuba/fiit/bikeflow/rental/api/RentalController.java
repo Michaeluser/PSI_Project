@@ -44,6 +44,13 @@ public class RentalController {
         return rentalService.reportIssue(rentalId, request);
     }
 
+    @PostMapping("/{rentalId}/feedback")
+    public FeedbackResponse submitFeedback(
+            @PathVariable UUID rentalId,
+            @Valid @RequestBody SubmitFeedbackRequest request) {
+        return rentalService.submitFeedback(rentalId, request);
+    }
+
     @PostMapping("/{rentalId}/cancel")
     public RentalResponse cancel(@PathVariable UUID rentalId) {
         return rentalService.cancelRental(rentalId);

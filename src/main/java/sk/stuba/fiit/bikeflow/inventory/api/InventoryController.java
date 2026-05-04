@@ -1,7 +1,7 @@
 package sk.stuba.fiit.bikeflow.inventory.api;
 
-import sk.stuba.fiit.bikeflow.inventory.repository.InventoryStockRepository;
-import sk.stuba.fiit.bikeflow.inventory.repository.SalesHistoryRepository;
+import sk.stuba.fiit.bikeflow.inventory.repository.StockItemRepository;
+import sk.stuba.fiit.bikeflow.inventory.repository.SaleRecordRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,19 +16,19 @@ import java.util.UUID;
 @RequestMapping("/api/inventory")
 public class InventoryController {
 
-    private final InventoryStockRepository inventoryStockRepository;
-    private final SalesHistoryRepository salesHistoryRepository;
+    private final StockItemRepository stockItemRepository;
+    private final SaleRecordRepository saleRecordRepository;
 
     public InventoryController(
-            InventoryStockRepository inventoryStockRepository,
-            SalesHistoryRepository salesHistoryRepository) {
-        this.inventoryStockRepository = inventoryStockRepository;
-        this.salesHistoryRepository = salesHistoryRepository;
+            StockItemRepository stockItemRepository,
+            SaleRecordRepository saleRecordRepository) {
+        this.stockItemRepository = stockItemRepository;
+        this.saleRecordRepository = saleRecordRepository;
     }
 
     @GetMapping("/overview")
     public List<InventoryOverviewResponse> getOverview(@RequestParam UUID facilityId) {
-        return inventoryStockRepository.findOverviewByFacilityId(facilityId)
+        return stockItemRepository.findOverviewByFacilityId(facilityId)
                 .stream()
                 .map(stock -> new InventoryOverviewResponse(
                         stock.getProduct().getId(),
@@ -47,7 +47,7 @@ public class InventoryController {
         LocalDate fromDate = toDate.minusDays(days);
 
         LinkedHashMap<UUID, SalesAnalysisResponse> aggregated = new LinkedHashMap<>();
-        salesHistoryRepository.findByFacilityAndPeriod(facilityId, fromDate, toDate)
+        saleRecordRepository.findByFacilityAndPeriod(facilityId, fromDate, toDate)
                 .forEach(item -> aggregated.compute(
                         item.getProduct().getId(),
                         (id, existing) -> existing == null

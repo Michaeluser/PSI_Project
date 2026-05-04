@@ -1,5 +1,6 @@
 package sk.stuba.fiit.bikeflow.servicebooking.application;
 
+import sk.stuba.fiit.bikeflow.common.NotificationService;
 import sk.stuba.fiit.bikeflow.facility.domain.Facility;
 import sk.stuba.fiit.bikeflow.facility.repository.FacilityRepository;
 import sk.stuba.fiit.bikeflow.dispatch.domain.DispatchRequest;
@@ -35,6 +36,7 @@ class ServiceBookingServiceTest {
     void shouldCreateBookingInFirstAvailableSlot() {
         ServiceBookingRepository bookingRepository = mock(ServiceBookingRepository.class);
         FacilityRepository facilityRepository = mock(FacilityRepository.class);
+        NotificationService notificationService = mock(NotificationService.class);
         ProductRepository productRepository = mock(ProductRepository.class);
         InventoryStockRepository inventoryStockRepository = mock(InventoryStockRepository.class);
         DispatchRequestRepository dispatchRequestRepository = mock(DispatchRequestRepository.class);
@@ -47,6 +49,7 @@ class ServiceBookingServiceTest {
         when(bookingRepository.countActiveBySlot(any(), any())).thenReturn(0L);
         when(bookingRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
+        ServiceBookingService service = new ServiceBookingService(bookingRepository, facilityRepository, notificationService);
         ServiceBookingService service = new ServiceBookingService(
                 bookingRepository,
                 facilityRepository,
@@ -77,8 +80,6 @@ class ServiceBookingServiceTest {
         ServiceBookingRepository bookingRepository = mock(ServiceBookingRepository.class);
         FacilityRepository facilityRepository = mock(FacilityRepository.class);
         ProductRepository productRepository = mock(ProductRepository.class);
-        InventoryStockRepository inventoryStockRepository = mock(InventoryStockRepository.class);
-        DispatchRequestRepository dispatchRequestRepository = mock(DispatchRequestRepository.class);
 
         UUID bookingId = UUID.randomUUID();
         UUID servicePointId = UUID.randomUUID();
@@ -97,7 +98,6 @@ class ServiceBookingServiceTest {
         when(product.getId()).thenReturn(productId);
         when(product.getName()).thenReturn("Disc brake set");
 
-        InventoryStock sourceStock = mock(InventoryStock.class);
         when(sourceStock.getFacility()).thenReturn(sourceFacility);
 
         ServiceBooking booking = new ServiceBooking();

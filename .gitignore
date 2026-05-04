@@ -29,4 +29,20 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-.claude/
+.idea/
+.idea/workspace.xml
+
+target/bikeflow-local-v2-1.0.0.jar
+target/bikeflow-local-v2-1.0.0.jar.original
+target/maven-archiver/
+target/maven-status/
+target/surefire-reports/
+target/test-classes/
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+target/classes/application.properties
+target/test-classes/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.class
+src/main/resources/application.properties
+.idea/misc.xml
+.idea/workspace.xml

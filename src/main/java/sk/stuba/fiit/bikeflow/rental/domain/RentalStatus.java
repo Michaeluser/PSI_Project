@@ -1,9 +1,8 @@
 package sk.stuba.fiit.bikeflow.rental.domain;
 
 public enum RentalStatus {
-    PRE_REGISTERED,
+    PRELIMINARY,
     ACTIVE,
-    FINISHED,
-    CANCELLED,
-    ISSUE_REPORTED
+    COMPLETED,
+    CANCELLED
 }

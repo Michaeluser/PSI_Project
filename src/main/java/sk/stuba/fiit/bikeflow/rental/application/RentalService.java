@@ -44,7 +44,9 @@ public class RentalService {
     }
 
     public List<RentalResponse> getAll() {
-        return rentalRepository.findAll().stream().map(this::toResponse).toList();
+        return rentalRepository.findAll().stream()
+                .filter(rental -> rental.getStatus() != RentalStatus.CANCELLED)
+                .map(this::toResponse).toList();
     }
 
     public RentalResponse preRegister(PreRegisterRentalRequest request) {
@@ -71,7 +73,7 @@ public class RentalService {
         rental.setRentalNumber("RT-" + System.currentTimeMillis());
         rental.setCustomer(customer);
         rental.setBike(bike);
-        rental.setStatus(RentalStatus.PRE_REGISTERED);
+        rental.setStatus(RentalStatus.PRELIMINARY);
         rental.setPlannedMinutes(request.plannedMinutes());
         rental.setEstimatedPrice(estimatedPrice);
         rental.setCreatedAt(OffsetDateTime.now());
@@ -82,7 +84,7 @@ public class RentalService {
 
     public RentalResponse startRental(UUID rentalId) {
         Rental rental = getRental(rentalId);
-        if (rental.getStatus() != RentalStatus.PRE_REGISTERED) {
+        if (rental.getStatus() != RentalStatus.PRELIMINARY) {
             throw new BusinessRuleException("Only preliminary registrations can be started.");
         }
 
@@ -102,10 +104,11 @@ public class RentalService {
             throw new BusinessRuleException("Only active rentals can be finished.");
         }
 
-        rental.setStatus(RentalStatus.FINISHED);
+        rental.setStatus(RentalStatus.COMPLETED);
         rental.setEndedAt(OffsetDateTime.now());
         rental.setFinalPrice(rental.getEstimatedPrice());
 
+        // Deduct credit only here, at completion — the single point of truth for billing.
         CustomerAccount customer = rental.getCustomer();
         customer.setCreditBalance(customer.getCreditBalance().subtract(rental.getEstimatedPrice()));
         customerAccountRepository.save(customer);
@@ -129,7 +132,7 @@ public class RentalService {
         bike.setReservedByCustomer(null);
         bikeRepository.save(bike);
 
-        rental.setStatus(RentalStatus.ISSUE_REPORTED);
+        rental.setStatus(RentalStatus.COMPLETED);
         rentalRepository.save(rental);
 
         RentalIssueReport issueReport = new RentalIssueReport();
@@ -142,6 +145,25 @@ public class RentalService {
         rentalIssueReportRepository.save(issueReport);
 
         return toResponse(rental);
+    }
+
+    public RentalResponse cancelRental(UUID rentalId) {
+        Rental rental = getRental(rentalId);
+        if (rental.getStatus() != RentalStatus.PRELIMINARY) {
+            throw new BusinessRuleException("Only preliminary rentals can be cancelled.");
+        }
+
+        // BUG FIX: Credit is only deducted at finishRental(), not at preRegister().
+        // Cancelling a PRELIMINARY rental must NOT touch the customer's credit balance —
+        // there is nothing to refund because nothing was charged yet.
+        rental.setStatus(RentalStatus.CANCELLED);
+
+        Bike bike = rental.getBike();
+        bike.setStatus(BikeStatus.AVAILABLE);
+        bike.setReservedByCustomer(null);
+        bikeRepository.save(bike);
+
+        return toResponse(rentalRepository.save(rental));
     }
 
     private Rental getRental(UUID rentalId) {

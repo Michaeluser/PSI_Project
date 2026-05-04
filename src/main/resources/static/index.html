@@ -148,26 +148,68 @@
     </section>
 
     <section class="tab-panel" id="tab-rental">
-        <div class="grid">
-            <div class="card">
-                <h2>Pre-register rental</h2>
-                <form id="pre-register-form">
-                    <label>Customer <select name="customerId" id="customer-select" required></select></label>
-                    <label>City
-                        <select id="bike-city-select">
-                            <option>Trnava</option>
-                            <option>Bratislava</option>
-                        </select>
-                    </label>
-                    <div class="button-row">
-                        <button id="load-bikes-button" type="button">Load available bikes</button>
-                    </div>
-                    <label>Bike <select name="bikeId" id="bike-select" required></select></label>
-                    <label>Planned minutes <input name="plannedMinutes" type="number" min="1" value="30" required></label>
-                    <button type="submit">Pre-register</button>
-                </form>
-            </div>
 
+        <div class="card">
+            <div class="wizard-stepper">
+                <div class="wizard-step-item active" id="step-ind-1">
+                    <span class="step-circle">1</span>
+                    <span class="step-label">Select Bike</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="wizard-step-item" id="step-ind-2">
+                    <span class="step-circle">2</span>
+                    <span class="step-label">Customer &amp; Duration</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="wizard-step-item" id="step-ind-3">
+                    <span class="step-circle">3</span>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card wizard-panel" id="wizard-step-1">
+            <h2>Select a Bike</h2>
+            <div class="city-row">
+                <label class="city-label">City
+                    <select id="bike-city-select">
+                        <option>Trnava</option>
+                        <option>Bratislava</option>
+                    </select>
+                </label>
+                <button id="load-bikes-button" type="button">Load available bikes</button>
+            </div>
+            <div id="bike-cards" class="bike-cards"></div>
+            <div class="wizard-nav">
+                <span></span>
+                <button id="step1-continue" type="button" disabled>Continue &#8594;</button>
+            </div>
+        </div>
+
+        <div class="card wizard-panel" id="wizard-step-2" style="display:none">
+            <h2>Customer &amp; Duration</h2>
+            <label>Customer
+                <select id="customer-select" required></select>
+            </label>
+            <label>Planned minutes
+                <input id="rental-minutes" type="number" min="1" value="30">
+            </label>
+            <div class="wizard-nav">
+                <button id="step2-back" type="button">&#8592; Back</button>
+                <button id="step2-continue" type="button">Continue &#8594;</button>
+            </div>
+        </div>
+
+        <div class="card wizard-panel" id="wizard-step-3" style="display:none">
+            <h2>Confirm</h2>
+            <div id="rental-summary" class="rental-summary"></div>
+            <div class="wizard-nav">
+                <button id="step3-back" type="button">&#8592; Back</button>
+                <button id="step3-submit" type="button">Pre-register</button>
+            </div>
+        </div>
+
+        <div class="grid">
             <div class="card">
                 <h2>Start / finish / report issue</h2>
                 <form id="rental-action-form">

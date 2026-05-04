@@ -108,3 +108,111 @@ pre {
     border-radius: 8px;
     overflow: auto;
 }
+
+/* ── Rental wizard ── */
+.wizard-stepper {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.wizard-step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+}
+
+.wizard-step-item.active { color: #0d6efd; }
+.wizard-step-item.done   { color: #1f3b63; }
+
+.step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.wizard-step-item.active .step-circle {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.wizard-step-item.done .step-circle {
+    background: #1f3b63;
+    color: white;
+    border-color: #1f3b63;
+}
+
+.step-connector {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    margin: 0 12px;
+    min-width: 32px;
+}
+
+/* city row in step 1 */
+.city-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.city-label {
+    margin-bottom: 0;
+    flex: 0 0 180px;
+}
+
+/* bike cards grid */
+.bike-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px;
+    margin: 16px 0 8px;
+}
+
+.bike-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: white;
+}
+
+.bike-card:hover  { border-color: #0d6efd; }
+.bike-card.selected {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+.bike-card-model { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.bike-card-meta  { font-size: 13px; color: #64748b; margin-bottom: 2px; }
+.bike-card-price { font-size: 14px; font-weight: 600; color: #1f3b63; margin-top: 8px; }
+
+/* wizard bottom nav */
+.wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* confirm summary table */
+.rental-summary table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; }
+.rental-summary td    { padding: 8px 12px; border-bottom: 1px solid #e2e8f0; }
+.rental-summary td:first-child { font-weight: 600; color: #64748b; width: 45%; }
+
+button:disabled { opacity: 0.4; cursor: not-allowed; }

@@ -149,161 +149,90 @@
 
     <section class="tab-panel" id="tab-rental">
 
-        <!-- ── STEPPER ── -->
-        <div class="rental-stepper">
-            <div class="rental-step active" id="rstep-1">
-                <span class="rental-step-num">1</span>
-                <span class="rental-step-label">Select Bike</span>
-            </div>
-            <div class="rental-step-arrow">›</div>
-            <div class="rental-step" id="rstep-2">
-                <span class="rental-step-num">2</span>
-                <span class="rental-step-label">Customer &amp; Duration</span>
-            </div>
-            <div class="rental-step-arrow">›</div>
-            <div class="rental-step" id="rstep-3">
-                <span class="rental-step-num">3</span>
-                <span class="rental-step-label">Confirm</span>
+        <div class="card">
+            <div class="wizard-stepper">
+                <div class="wizard-step-item active" id="step-ind-1">
+                    <span class="step-circle">1</span>
+                    <span class="step-label">Select Bike</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="wizard-step-item" id="step-ind-2">
+                    <span class="step-circle">2</span>
+                    <span class="step-label">Customer &amp; Duration</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="wizard-step-item" id="step-ind-3">
+                    <span class="step-circle">3</span>
+                    <span class="step-label">Confirm</span>
+                </div>
             </div>
         </div>
 
-        <!-- ── PANEL 1: Bike selection ── -->
-        <div class="rental-panel active" id="rpanel-1">
-            <div class="card">
-                <h2>Select a Bike</h2>
-                <div class="rental-city-row">
-                    <label style="margin:0;font-weight:600;">City</label>
-                    <select id="bike-city-select" style="width:180px;margin:0;">
+        <div class="card wizard-panel" id="wizard-step-1">
+            <h2>Select a Bike</h2>
+            <div class="city-row">
+                <label class="city-label">City
+                    <select id="bike-city-select">
                         <option>Trnava</option>
                         <option>Bratislava</option>
                     </select>
-                    <button id="load-bikes-button" type="button">Load available bikes</button>
-                </div>
-                <div id="bike-cards-container" class="bike-cards-grid"></div>
-                <!-- hidden select kept for app.js compatibility -->
-                <select name="bikeId" id="bike-select" style="display:none"></select>
-                <div class="rental-nav-row">
-                    <span></span>
-                    <button type="button" id="r-to-step2" class="btn-primary" disabled onclick="rentalGoStep(2)">Continue →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── PANEL 2: Customer + duration ── -->
-        <div class="rental-panel" id="rpanel-2">
-            <div class="card">
-                <h2>Customer &amp; Duration</h2>
-                <div class="grid" style="gap:16px;">
-                    <div>
-                        <label>Customer
-                            <select name="customerId" id="customer-select" required onchange="rentalUpdateEstimate()"></select>
-                        </label>
-                        <label>Planned minutes
-                            <input id="rental-planned-minutes" name="plannedMinutes" type="number" min="1" value="30" required oninput="rentalUpdateEstimate()">
-                        </label>
-                    </div>
-                    <div>
-                        <div class="rental-estimate-card" id="rental-estimate-card">
-                            <div class="estimate-row">
-                                <span class="elabel">Bike</span>
-                                <span class="evalue" id="rest-bike">—</span>
-                            </div>
-                            <div class="estimate-row">
-                                <span class="elabel">Rate</span>
-                                <span class="evalue" id="rest-rate">—</span>
-                            </div>
-                            <div class="estimate-row">
-                                <span class="elabel">Duration</span>
-                                <span class="evalue" id="rest-dur">—</span>
-                            </div>
-                            <div class="estimate-row total-row">
-                                <span class="elabel"><strong>Estimated total</strong></span>
-                                <span class="evalue total-val" id="rest-total">—</span>
-                            </div>
-                            <div class="estimate-row">
-                                <span class="elabel">Customer balance</span>
-                                <span class="evalue" id="rest-balance">—</span>
-                            </div>
-                            <div class="estimate-row warn-row" id="rest-warn-row" style="display:none">
-                                <span class="elabel">⚠ Insufficient balance</span>
-                                <span class="evalue" id="rest-shortfall">—</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rental-nav-row">
-                    <button type="button" onclick="rentalGoStep(1)">← Back</button>
-                    <button type="button" id="r-to-step3" class="btn-primary" onclick="rentalGoStep(3)">Review →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── PANEL 3: Confirm ── -->
-        <div class="rental-panel" id="rpanel-3">
-            <div class="card">
-                <h2>Confirm Pre-registration</h2>
-                <div class="rental-summary-box" id="rental-summary-box">
-                    <div class="summary-category" id="rsum-cat">—</div>
-                    <div class="summary-bike" id="rsum-bike">—</div>
-                    <div class="summary-customer" id="rsum-customer">—</div>
-                    <div class="summary-meta">
-                        <div class="summary-meta-item highlight">
-                            <div class="smeta-label">Estimated Price</div>
-                            <div class="smeta-value" id="rsum-price">—</div>
-                        </div>
-                        <div class="summary-meta-item">
-                            <div class="smeta-label">Duration</div>
-                            <div class="smeta-value" id="rsum-duration">—</div>
-                        </div>
-                        <div class="summary-meta-item">
-                            <div class="smeta-label">Rate</div>
-                            <div class="smeta-value" id="rsum-rate">—</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rental-nav-row">
-                    <button type="button" onclick="rentalGoStep(2)">← Back</button>
-                    <button type="button" id="r-confirm-btn" class="btn-primary" onclick="rentalConfirmPreRegister()">Pre-Register Rental</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── MANAGE: active rentals table ── -->
-        <div class="card" style="margin-top:8px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-                <h2 style="margin:0;">Active &amp; Recent Rentals</h2>
-                <button type="button" onclick="rentalLoadTable()">↻ Refresh</button>
-            </div>
-            <div id="rental-table-container">
-                <p style="color:#64748b;font-size:13px;">Pre-register a rental above, or click Refresh to load existing rentals.</p>
-            </div>
-            <!-- kept for app.js compatibility -->
-            <select id="rental-select" style="display:none"></select>
-        </div>
-
-        <!-- ── ISSUE MODAL ── -->
-        <div id="rental-issue-modal" class="rental-modal-backdrop" style="display:none">
-            <div class="rental-modal">
-                <h3 style="margin:0 0 4px">Report Issue</h3>
-                <p style="margin:0 0 16px;color:#64748b;font-size:13px;" id="rental-modal-sub">Report a problem with this bike.</p>
-                <label>Issue type
-                    <select id="issue-type-select">
-                        <option value="DAMAGED">Damaged</option>
-                        <option value="MISSING">Missing</option>
-                    </select>
                 </label>
-                <label>Description
-                    <textarea id="issue-description" placeholder="Describe the issue…"></textarea>
-                </label>
-                <div class="rental-nav-row" style="margin-top:16px;">
-                    <button type="button" onclick="rentalCloseIssueModal()">Cancel</button>
-                    <button type="button" class="btn-danger" onclick="rentalSubmitIssue()">Submit Report</button>
-                </div>
+                <button id="load-bikes-button" type="button">Load available bikes</button>
+            </div>
+            <div id="bike-cards" class="bike-cards"></div>
+            <div class="wizard-nav">
+                <span></span>
+                <button id="step1-continue" type="button" disabled>Continue &#8594;</button>
             </div>
         </div>
 
-        <!-- kept for app.js loadReferenceData compatibility -->
-        <pre id="rental-output" style="display:none"></pre>
+        <div class="card wizard-panel" id="wizard-step-2" style="display:none">
+            <h2>Customer &amp; Duration</h2>
+            <label>Customer
+                <select id="customer-select" required></select>
+            </label>
+            <label>Planned minutes
+                <input id="rental-minutes" type="number" min="1" value="30">
+            </label>
+            <div class="wizard-nav">
+                <button id="step2-back" type="button">&#8592; Back</button>
+                <button id="step2-continue" type="button">Continue &#8594;</button>
+            </div>
+        </div>
+
+        <div class="card wizard-panel" id="wizard-step-3" style="display:none">
+            <h2>Confirm</h2>
+            <div id="rental-summary" class="rental-summary"></div>
+            <div class="wizard-nav">
+                <button id="step3-back" type="button">&#8592; Back</button>
+                <button id="step3-submit" type="button">Pre-register</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Start / finish / report issue</h2>
+                <form id="rental-action-form">
+                    <label>Rental <select name="rentalId" id="rental-select" required></select></label>
+                    <div class="button-row">
+                        <button type="button" id="start-rental-button">Start rental</button>
+                        <button type="button" id="finish-rental-button">Finish rental</button>
+                    </div>
+                    <label>Issue type
+                        <select id="issue-type-select">
+                            <option>DAMAGED</option>
+                            <option>MISSING</option>
+                        </select>
+                    </label>
+                    <label>Issue description <textarea id="issue-description">Reported from local UI.</textarea></label>
+                    <button type="button" id="report-issue-button">Report issue</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Rentals</h2>
+            <pre id="rental-output"></pre>
+        </div>
     </section>
 
     <section class="tab-panel" id="tab-data">

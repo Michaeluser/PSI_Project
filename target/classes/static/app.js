@@ -69,11 +69,90 @@ async function loadReferenceData() {
 
 document.getElementById('refresh-reference-data').addEventListener('click', loadReferenceData);
 
+// ── Rental wizard ──────────────────────────────────────────
+let selectedBike = null;
+
+function showWizardStep(n) {
+    document.querySelectorAll('.wizard-panel').forEach(p => p.style.display = 'none');
+    document.getElementById(`wizard-step-${n}`).style.display = 'block';
+    [1, 2, 3].forEach(i => {
+        const el = document.getElementById(`step-ind-${i}`);
+        el.classList.remove('active', 'done');
+        if (i < n) el.classList.add('done');
+        if (i === n) el.classList.add('active');
+    });
+}
+
 document.getElementById('load-bikes-button').addEventListener('click', async () => {
     const city = document.getElementById('bike-city-select').value;
     const bikes = await api(`/api/bikes?city=${encodeURIComponent(city)}`);
-    populateSelect(document.getElementById('bike-select'), bikes, 'id', item => `${item.modelName} / ${item.code} / ${item.pricePerMinute}`);
+    const container = document.getElementById('bike-cards');
+    container.innerHTML = '';
+    if (bikes.length === 0) {
+        container.innerHTML = '<p style="color:#64748b;margin:12px 0">No available bikes in this city.</p>';
+        return;
+    }
+    bikes.forEach(bike => {
+        const card = document.createElement('div');
+        card.className = 'bike-card';
+        card.innerHTML = `
+            <div class="bike-card-model">${bike.modelName}</div>
+            <div class="bike-card-meta">${bike.code} &middot; ${bike.category}</div>
+            <div class="bike-card-meta">${bike.facilityName}</div>
+            <div class="bike-card-price">&euro;${bike.pricePerMinute} / min</div>
+        `;
+        card.addEventListener('click', () => {
+            document.querySelectorAll('.bike-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedBike = bike;
+            document.getElementById('step1-continue').disabled = false;
+        });
+        container.appendChild(card);
+    });
 });
+
+document.getElementById('step1-continue').addEventListener('click', () => {
+    if (!selectedBike) return;
+    showWizardStep(2);
+});
+
+document.getElementById('step2-back').addEventListener('click', () => showWizardStep(1));
+
+document.getElementById('step2-continue').addEventListener('click', () => {
+    const minutes = Number(document.getElementById('rental-minutes').value);
+    if (!minutes || minutes < 1) return;
+    const customerEl = document.getElementById('customer-select');
+    const customerName = customerEl.options[customerEl.selectedIndex]?.text ?? '';
+    const estimatedPrice = (Number(selectedBike.pricePerMinute) * minutes).toFixed(2);
+    document.getElementById('rental-summary').innerHTML = `
+        <table>
+            <tr><td>Bike</td><td>${selectedBike.modelName} (${selectedBike.code})</td></tr>
+            <tr><td>Category</td><td>${selectedBike.category}</td></tr>
+            <tr><td>Location</td><td>${selectedBike.facilityName}, ${selectedBike.city}</td></tr>
+            <tr><td>Customer</td><td>${customerName}</td></tr>
+            <tr><td>Planned minutes</td><td>${minutes}</td></tr>
+            <tr><td>Estimated price</td><td>&euro;${estimatedPrice}</td></tr>
+        </table>
+    `;
+    showWizardStep(3);
+});
+
+document.getElementById('step3-back').addEventListener('click', () => showWizardStep(2));
+
+document.getElementById('step3-submit').addEventListener('click', async () => {
+    const customerId = document.getElementById('customer-select').value;
+    const plannedMinutes = Number(document.getElementById('rental-minutes').value);
+    await api('/api/rentals/pre-register', {
+        method: 'POST',
+        body: JSON.stringify({ customerId, bikeId: selectedBike.id, plannedMinutes })
+    });
+    selectedBike = null;
+    document.getElementById('bike-cards').innerHTML = '';
+    document.getElementById('step1-continue').disabled = true;
+    showWizardStep(1);
+    await loadReferenceData();
+});
+// ───────────────────────────────────────────────────────────
 
 document.getElementById('load-overview-button').addEventListener('click', async () => {
     const facilityId = document.getElementById('inventory-facility-select').value;
@@ -193,19 +272,6 @@ document.getElementById('dispatch-form').addEventListener('submit', async event 
     await loadReferenceData();
 });
 
-document.getElementById('pre-register-form').addEventListener('submit', async event => {
-    event.preventDefault();
-    const form = new FormData(event.target);
-    await api('/api/rentals/pre-register', {
-        method: 'POST',
-        body: JSON.stringify({
-            customerId: form.get('customerId'),
-            bikeId: form.get('bikeId'),
-            plannedMinutes: Number(form.get('plannedMinutes'))
-        })
-    });
-    await loadReferenceData();
-});
 
 document.getElementById('start-rental-button').addEventListener('click', async () => {
     const rentalId = document.getElementById('rental-select').value;

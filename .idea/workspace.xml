@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5614f3e1-407d-4cc1-9798-fddd0444f0f5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChangeLog.md" beforeDir="false" afterPath="$PROJECT_DIR$/ChangeLog.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChangeLog_main.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" beforeDir="false" afterPath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/application/RentalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/application/RentalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/repository/StockItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/RentalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/api/RentalController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/application/RentalService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/rental/domain/RentalStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService$MissingPart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService$MissingPart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/servicebooking/domain/ServiceBooking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/rental/application/RentalServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/sk/stuba/fiit/bikeflow/servicebooking/application/ServiceBookingServiceTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +110,7 @@
       <workItem from="1777842337691" duration="340000" />
       <workItem from="1777842703398" duration="11827000" />
       <workItem from="1777857380695" duration="765000" />
-      <workItem from="1777858177657" duration="7742000" />
+      <workItem from="1777858177657" duration="8319000" />
     </task>
     <servers />
   </component>

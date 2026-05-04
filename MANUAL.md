@@ -12,24 +12,8 @@
 |---|---|
 | Java | 21+ |
 | Maven | 3.9+ |
-| PostgreSQL | 15+ |
 
-### Príprava databázy
-
-Databáza musí bežať pred spustením aplikácie. Predvolené pripojenie (z `application.properties`):
-
-```
-Host:     localhost:5432
-DB:       bikeflow
-User:     postgres
-Password: DBSisbest
-```
-
-Ak databáza `bikeflow` ešte neexistuje, vytvor ju:
-
-```sql
-CREATE DATABASE bikeflow;
-```
+PostgreSQL **nie je potrebný** — aplikácia používa vstavanú H2 in-memory databázu.
 
 ### Spustenie
 
@@ -39,7 +23,17 @@ mvn spring-boot:run
 
 Aplikácia beží na **http://localhost:8080**.
 
-Pri každom štarte Hibernate schému zmaže a znovu vytvorí (`ddl-auto=create-drop`), potom `data.sql` naplní tabuľky testovaciemi dátami.
+Pri každom štarte Hibernate schému zmaže a znovu vytvorí (`ddl-auto=create-drop`), potom `data.sql` naplní tabuľky testovacími dátami. Po reštarte sa dáta resetujú na seed stav.
+
+### H2 konzola (voliteľné)
+
+Priamy pohľad do databázy je dostupný na **http://localhost:8080/h2-console**:
+
+```
+JDBC URL:  jdbc:h2:mem:bikeflow
+User:      sa
+Password:  (prázdne)
+```
 
 ### Zastavenie
 

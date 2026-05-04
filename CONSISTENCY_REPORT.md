@@ -3,7 +3,7 @@
 > Dátum: 2026-05-04  
 > EA model: `BikeFlow_v5.qea`  
 > Kód: `PSI_Project/src/main/java/sk/stuba/fiit/bikeflow`  
-> Posledná aktualizácia: po konzistenčných opravách Round 2 (pozri `ChangeLog.md`)
+> Posledná aktualizácia: UI-R8 – migrácia na H2 in-memory (pozri `ChangeLog.md`)
 
 ---
 

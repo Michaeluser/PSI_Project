@@ -334,3 +334,18 @@ Oba test súbory referovali zrušené triedy, nesprávne signatúry konštruktor
 | Súbor | Zmena |
 |---|---|
 | `dispatch/repository/DispatchRequestRepository.java` | **Zmazaný** – obsahoval iba package deklaráciu, žiadnu triedu; zvyšok po refaktore Dispatch → Expedition |
+
+---
+
+## [UI-R8] Migrácia databázy: PostgreSQL → H2 in-memory
+
+### Dôvod
+
+PostgreSQL vyžaduje externú inštaláciu a konfiguráciu, čo znemožňuje spustenie na fakultných počítačoch bez ďalšieho nastavenia. H2 je vstavaná in-memory databáza – nevyžaduje žiadnu inštaláciu.
+
+| Súbor | Zmena |
+|---|---|
+| `src/main/resources/application.properties` | `datasource.url` → `jdbc:h2:mem:bikeflow;DB_CLOSE_DELAY=-1`; driver → `org.h2.Driver`; dialect → `H2Dialect`; credentials → `sa` / (prázdne) |
+| `src/main/resources/data.sql` | Bez zmeny – H2 2.x (bundlovaná v Spring Boot 3.x) podporuje UUID literály, boolean `true/false` aj timestamps s timezone offsetom (`+02:00`) |
+
+H2 konzola dostupná na `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:bikeflow`).

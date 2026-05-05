@@ -228,6 +228,17 @@
                     <button type="button" id="report-issue-button">Report issue</button>
                 </form>
             </div>
+            <div class="card">
+                <h2>Submit feedback (UC05)</h2>
+                <form id="feedback-form">
+                    <label>Rental <select id="feedback-rental-select" required></select></label>
+                    <label>Rating (1–5)
+                        <input id="feedback-rating" type="number" min="1" max="5" value="5" required>
+                    </label>
+                    <label>Comment <textarea id="feedback-comment">Great experience, smooth ride!</textarea></label>
+                    <button type="submit">Submit feedback</button>
+                </form>
+            </div>
         </div>
         <div class="card">
             <h2>Rentals</h2>

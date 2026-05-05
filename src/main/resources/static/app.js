@@ -54,16 +54,23 @@ async function loadReferenceData() {
     populateSelect(document.getElementById('inventory-facility-select'), facilities, 'id', item => `${item.name} / ${item.city}`);
     populateSelect(document.getElementById('dispatch-source'), facilities, 'id', item => `${item.name} / ${item.city}`);
     populateSelect(document.getElementById('dispatch-target'), facilities, 'id', item => `${item.name} / ${item.city}`);
+
+    // Pre-select warehouse as source and shop as target to avoid source===target default error
+    const warehouse = facilities.find(f => f.type === 'WAREHOUSE');
+    const shop = facilities.find(f => f.type === 'SHOP');
+    if (warehouse) document.getElementById('dispatch-source').value = warehouse.id;
+    if (shop) document.getElementById('dispatch-target').value = shop.id;
     populateSelect(document.getElementById('dispatch-product'), products, 'id', item => `${item.name} (${item.sku})`);
     populateSelect(document.getElementById('service-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
     populateSelect(document.getElementById('service-intake-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
     populateSelect(document.getElementById('service-action-booking-select'), bookings, 'id', item => `${item.bookingNumber} / ${item.status}`);
     populateSelect(document.getElementById('service-intake-product'), products, 'id', item => `${item.name} (${item.sku})`);
     populateSelect(document.getElementById('rental-select'), rentals, 'id', item => `${item.rentalNumber} / ${item.status}`);
+    populateSelect(document.getElementById('feedback-rental-select'), rentals, 'id', item => `${item.rentalNumber} / ${item.status}`);
 
     document.getElementById('reference-output').textContent = JSON.stringify({ customers, facilities, products }, null, 2);
     document.getElementById('service-bookings-output').textContent = JSON.stringify(bookings, null, 2);
-    document.getElementById('dispatch-output').textContent = JSON.stringify(await api('/api/dispatch-requests'), null, 2);
+    document.getElementById('dispatch-output').textContent = JSON.stringify(await api('/api/expedition-requests'), null, 2);
     document.getElementById('rental-output').textContent = JSON.stringify(rentals, null, 2);
 }
 
@@ -256,7 +263,7 @@ document.getElementById('load-service-history-button').addEventListener('click',
 document.getElementById('dispatch-form').addEventListener('submit', async event => {
     event.preventDefault();
     const form = new FormData(event.target);
-    await api('/api/dispatch-requests', {
+    await api('/api/expedition-requests', {
         method: 'POST',
         body: JSON.stringify({
             sourceFacilityId: form.get('sourceFacilityId'),
@@ -282,6 +289,19 @@ document.getElementById('start-rental-button').addEventListener('click', async (
 document.getElementById('finish-rental-button').addEventListener('click', async () => {
     const rentalId = document.getElementById('rental-select').value;
     await api(`/api/rentals/${rentalId}/finish`, { method: 'POST' });
+    await loadReferenceData();
+});
+
+document.getElementById('feedback-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const rentalId = document.getElementById('feedback-rental-select').value;
+    await api(`/api/rentals/${rentalId}/feedback`, {
+        method: 'POST',
+        body: JSON.stringify({
+            rating: Number(document.getElementById('feedback-rating').value),
+            comment: document.getElementById('feedback-comment').value || null
+        })
+    });
     await loadReferenceData();
 });
 

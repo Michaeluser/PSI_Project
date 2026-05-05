@@ -90,6 +90,9 @@ public class ExpeditionRequestService {
                         "Requested quantity for product '" + product.getName() + "' exceeds available stock (" + stock.getQuantity() + ").");
             }
 
+            stock.setQuantity(stock.getQuantity() - payload.requestedQuantity());
+            stockItemRepository.save(stock);
+
             ExpeditionRequestItem item = new ExpeditionRequestItem();
             item.setId(UUID.randomUUID());
             item.setExpeditionRequest(expeditionRequest);

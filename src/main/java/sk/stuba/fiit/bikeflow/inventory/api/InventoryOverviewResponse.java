@@ -6,5 +6,7 @@ public record InventoryOverviewResponse(
         UUID productId,
         String productName,
         String sku,
-        int quantity) {
+        int quantity,
+        int minimumQuantity,
+        boolean belowMinimum) {
 }

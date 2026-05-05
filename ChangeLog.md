@@ -349,3 +349,44 @@ PostgreSQL vyžaduje externú inštaláciu a konfiguráciu, čo znemožňuje spu
 | `src/main/resources/data.sql` | Bez zmeny – H2 2.x (bundlovaná v Spring Boot 3.x) podporuje UUID literály, boolean `true/false` aj timestamps s timezone offsetom (`+02:00`) |
 
 H2 konzola dostupná na `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:bikeflow`).
+
+---
+
+## [UI-R9] Fix – app.js: nesprávny endpoint pre expedičné požiadavky
+
+### Problém
+
+`app.js` volal starý endpoint `/api/dispatch-requests` (premenovaný počas refaktoru Dispatch → Expedition). Backend od F5-R2 obsluhuje `/api/expedition-requests`.
+
+| Súbor | Riadok | Zmena |
+|---|---|---|
+| `static/app.js` | `loadReferenceData()` | `/api/dispatch-requests` → `/api/expedition-requests` |
+| `static/app.js` | `dispatch-form` submit handler | `/api/dispatch-requests` → `/api/expedition-requests` |
+
+Audit pri kontrole demoovateľnosti UC03 (žiadne ďalšie bugy v UC01, UC02, UC04 neboli nájdené).
+
+---
+
+## [UI-R10] Fix – UC03 kód: chýbajúce polia v InventoryOverviewResponse + odpočítanie skladu
+
+### Problémy nájdené pri audite UC03
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `inventory/api/InventoryOverviewResponse.java` | Chýbali polia `minimumQuantity` a `belowMinimum` – `StockItem.isBelowMinimum()` existovalo, ale do response sa neprenášalo | Pridané polia `minimumQuantity` (int) a `belowMinimum` (boolean) |
+| `inventory/api/InventoryController.java` | `getOverview()` mapoval iba `quantity`, nové polia ignoroval | Doplnené `stock.getMinimumQuantity()` a `stock.isBelowMinimum()` do konštruktora response |
+| `dispatch/application/ExpeditionRequestService.java` | `create()` validovalo dostupnosť skladu, ale po vytvorení požiadavky **neodpočítalo** množstvo – dalo sa vytvoriť ľubovoľne veľa požiadaviek na rovnaký tovar | Pridané `stock.setQuantity(stock.getQuantity() - payload.requestedQuantity()); stockItemRepository.save(stock);` |
+| `static/app.js` | Dropdowny `dispatch-source` a `dispatch-target` defaultne ukazovali na rovnakú prvú prevádzku → okamžitá chyba `"Source facility must be different from target facility."` | Po `populateSelect` sa automaticky prednastaví source na `WAREHOUSE` a target na `SHOP` podľa `facility.type` |
+
+---
+
+## [UI-R11] Globálny audit + doplnenie chýbajúcich prvkov (2026-05-05)
+
+### Nájdené a opravené problémy
+
+| Súbor | Problém | Oprava |
+|---|---|---|
+| `static/index.html` | Feedback UI (UC05) úplne chýbalo v Rental tab – nebolo možné odovzdať hodnotenie po prenájme | Pridaná nová karta „Submit feedback (UC05)" s formulárom: výber rentalu, rating 1–5, komentár |
+| `static/app.js` | `feedback-rental-select` nebol plnený pri `loadReferenceData()` | Pridaný `populateSelect(feedback-rental-select, rentals, ...)` |
+| `static/app.js` | Chýbal event listener pre `feedback-form` submit | Pridaný handler: `POST /api/rentals/{rentalId}/feedback` s telom `{ rating, comment }` |
+| `src/main/resources/data.sql` | Chýbali riadky `service_worker` a `warehouse_staff` – backend entity `ServiceWorker` a `WarehouseStaff` nemali testovacie dáta | Pridané 2 záznamy `service_worker` (Marek Novak, Jana Kováčová) a 1 záznam `warehouse_staff` (Peter Skladnik) naviazané na príslušné prevádzky |

@@ -5,11 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5614f3e1-407d-4cc1-9798-fddd0444f0f5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANUAL.md" beforeDir="false" afterPath="$PROJECT_DIR$/MANUAL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONSISTENCY_REPORT.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangeLog.md" beforeDir="false" afterPath="$PROJECT_DIR$/ChangeLog.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" beforeDir="false" afterPath="$PROJECT_DIR$/SK4_F5_BikeFlow.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/~$4_F5_BikeFlow.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryOverviewResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sk/stuba/fiit/bikeflow/inventory/api/InventoryOverviewResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/dispatch/application/ExpeditionRequestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryOverviewResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sk/stuba/fiit/bikeflow/inventory/api/InventoryOverviewResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +33,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="112" />
+    <option name="cachedIndexableFilesCount" value="143" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,6 +131,10 @@
       <workItem from="1777842703398" duration="11827000" />
       <workItem from="1777857380695" duration="765000" />
       <workItem from="1777858177657" duration="9173000" />
+      <workItem from="1777969656401" duration="243000" />
+      <workItem from="1777980541714" duration="2024000" />
+      <workItem from="1777982825984" duration="606000" />
+      <workItem from="1777983467587" duration="1533000" />
     </task>
     <servers />
   </component>

@@ -63,6 +63,13 @@ insert into sales_history (id, facility_id, product_id, sales_date, quantity_sol
 ('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee3', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3', 'cccccccc-cccc-cccc-cccc-ccccccccccc2', '2026-04-28', 2),
 ('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeee4', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa3', 'cccccccc-cccc-cccc-cccc-ccccccccccc3', '2026-05-02', 4);
 
+insert into service_worker (id, full_name, email, service_point_id) values
+('aa100001-0000-0000-0000-000000000001', 'Marek Novak',    'marek.novak@bikeflow.sk',    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1'),
+('aa100002-0000-0000-0000-000000000002', 'Jana Kováčová',  'jana.kovacova@bikeflow.sk',  'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1');
+
+insert into warehouse_staff (id, full_name, email, warehouse_id) values
+('aa200001-0000-0000-0000-000000000001', 'Peter Skladnik', 'peter.skladnik@bikeflow.sk', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2');
+
 -- Spare parts: SP-001 and SP-002 have stock, SP-003 is out of stock (demos PartOrder creation)
 insert into spare_part (id, sku, name, stock_quantity) values
 ('55500001-0000-0000-0000-000000000001', 'SP-BRAKE-PAD', 'Brake pad set',        8),

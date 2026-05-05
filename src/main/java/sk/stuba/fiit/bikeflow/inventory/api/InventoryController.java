@@ -34,7 +34,9 @@ public class InventoryController {
                         stock.getProduct().getId(),
                         stock.getProduct().getName(),
                         stock.getProduct().getSku(),
-                        stock.getQuantity()))
+                        stock.getQuantity(),
+                        stock.getMinimumQuantity(),
+                        stock.isBelowMinimum()))
                 .toList();
     }
 
